@@ -51,7 +51,7 @@ void QuadraticRoot()
 
 void CreditCardValidator()
 {
-
+	cout << "Credit declined. You're stupid.\n";
 }
 
 void GradeCalculator()
