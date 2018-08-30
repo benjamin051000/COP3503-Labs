@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Functions.h"
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 void menu()
@@ -47,14 +48,42 @@ void QuadraticRoot()
 	cin >> a; //Check if they're integers?
 	cin >> b;
 	cin >> c;
-}
 
-void CreditCardValidator()
-{
-	
+	//Compute discriminant
+	double discriminant = b * b - 4 * a * c; //Faster than pow(b, 2)
+	bool twoRoots = false;
+
+	if (discriminant > 0) {
+		cout << "The equation has two roots: ";
+		twoRoots = true;
+	}
+	else if (discriminant == 0) {
+		cout << "The equation has one root: ";
+	}
+	else {
+		cout << "The equation has no real roots";
+		return;
+	}
+
+	//Compute the roots
+	//Positive root
+	double posRoot = (-b + sqrt(discriminant)) / 2 * a;
+	cout << posRoot;
+
+	//Negative root
+	if (twoRoots) {
+		double negRoot = (-b - sqrt(discriminant)) / 2 * a;
+		cout << " and " << negRoot;
+	}
+	cout << endl;
 }
 
 void GradeCalculator()
 {
 
+}
+
+void CreditCardValidator()
+{
+	
 }
