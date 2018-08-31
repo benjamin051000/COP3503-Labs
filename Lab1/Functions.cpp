@@ -120,5 +120,96 @@ void GradeCalculator()
 
 void CreditCardValidator()
 {
-	
+	long long cardNum;
+	cout << "Enter a credit card number: ";
+
+	cin >> cardNum;
+
+	if (isValid(cardNum)) {
+		cout << cardNum << " is valid.";
+	}
+	else {
+		cout << cardNum << " is invalid.";
+	}
 }
+
+bool isValid(long long number)
+{
+	int numSize = getSize(number);
+
+	if (numSize > 16 || numSize < 13) {
+		return false;
+	}
+
+	int sum = sumOfDoubleEvenPlace(number) + sumOfOddPlace(number);
+
+	if (sum % 10 != 0) {
+		return false;
+	}
+
+	if (prefixMatched(number, 4) || prefixMatched(number, 5)
+		|| prefixMatched(number, 37) || prefixMatched(number, 6)) {
+		return true;
+	}
+
+	return false;
+}
+
+int sumOfDoubleEvenPlace(long long number)
+{
+	int sum = 0;
+
+	while (number > 0) {
+		int digit = (int)((number % 100) / 10);
+		number /= 100;
+		
+		sum += getDigit(2 * digit);
+	}
+	return sum;
+}
+
+int getDigit(int number)
+{
+	return (number / 10) + (number % 10);
+}
+
+int sumOfOddPlace(long long number)
+{
+	int sum = 0;
+	while (number > 0) {
+		int digit = (int)(number % 10);
+		number /= 100;
+
+		sum += getDigit(digit);
+	}
+	return sum;
+}
+
+bool prefixMatched(long long number, int digit)
+{
+	return getPrefix(number, getSize(digit)) == digit;
+}
+
+int getSize(long long number)
+{
+	int digits = 0;
+	while (number > 0) {
+		number /= 10;
+		digits++;
+	}
+	return digits;
+}
+
+long getPrefix(long long number, int numDigits)
+{
+	int numberSize = getSize(number);
+
+	int decMovements = numberSize - numDigits;
+
+	while (decMovements-- > 0) {
+		number /= 10;
+	}
+
+	return number;
+}
+
