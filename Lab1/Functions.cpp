@@ -212,4 +212,3 @@ long getPrefix(long long number, int numDigits)
 
 	return number;
 }
-
