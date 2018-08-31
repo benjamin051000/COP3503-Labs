@@ -8,24 +8,25 @@ using namespace std;
 void menu()
 {
 	int input;
-	bool validInput = false;
-	
-	while (!validInput)
+	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number:\n";
+	cin >> input;
+
+	if(!cin)
 	{
-		cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number:\n";
-		cin >> input;
-		
-		if (cin && input >= 1 && input <= 3)
-		{
-			validInput = true;
-		}
-		else
-		{
+		if (input <= 0 || input > 3) {
 			//Clear cin and start over
-			cout << "\nPlease enter an integer between 1 and 3." << endl;
+			cout << "\nInput out of range." << endl;
 			cin.clear();
 			cin.ignore(1000, '\n');
+			return;
 		}
+		
+		//Otherwise, it's not an int
+		//Clear cin and start over
+		cout << "\nInvalid input." << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		return;
 	}
 
 	//input is certainly either 1, 2, or 3 at this point
@@ -49,6 +50,14 @@ void QuadraticRoot()
 	cin >> a; //Check if they're integers?
 	cin >> b;
 	cin >> c;
+
+	if (!cin) {
+		//Clear cin and start over
+		cout << "\nInvalid input." << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		return;
+	}
 
 	//Compute discriminant
 	double discriminant = b * b - 4 * a * c; //Faster than pow(b, 2)
@@ -84,6 +93,14 @@ void GradeCalculator()
 	cout << "Enter the number of students: ";
 	int studentNum;
 	cin >> studentNum;
+
+	if (!cin) {
+		//Clear cin and start over
+		cout << "\nInvalid input." << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		return;
+	}
 
 	vector<int> scores(studentNum);
 	vector<char> grades(studentNum);
@@ -124,6 +141,14 @@ void CreditCardValidator()
 	cout << "Enter a credit card number: ";
 
 	cin >> cardNum;
+
+	if (!cin) {
+		//Clear cin and start over
+		cout << "\nInvalid input." << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		return;
+	}
 
 	if (isValid(cardNum)) {
 		cout << cardNum << " is valid.";
