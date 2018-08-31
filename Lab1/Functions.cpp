@@ -2,6 +2,7 @@
 #include "Functions.h"
 #include <iostream>
 #include <math.h>
+#include <vector>
 using namespace std;
 
 void menu()
@@ -80,7 +81,41 @@ void QuadraticRoot()
 
 void GradeCalculator()
 {
+	cout << "Enter the number of students: ";
+	int studentNum;
+	cin >> studentNum;
 
+	vector<int> scores(studentNum);
+	vector<char> grades(studentNum);
+
+	cout << "Enter " << studentNum << " scores: ";
+
+	int best = -1;
+	for (int i = 0; i < studentNum; i++) {
+		cin >> scores[i];
+		if (best < scores[i]) {
+			best = scores[i];
+		}
+	}
+
+	for (int i = 0; i < studentNum; i++) {
+		if (scores[i] >= best - 10) {
+			grades[i] = 'A';
+		}
+		else if (scores[i] >= best - 20) {
+			grades[i] = 'B';
+		}
+		else if (scores[i] >= best - 30) {
+			grades[i] = 'C';
+		}
+		else if (scores[i] >= best - 40) {
+			grades[i] = 'D';
+		}
+		else {
+			grades[i] = 'F';
+		}
+		cout << "Student " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i] << endl;
+	}
 }
 
 void CreditCardValidator()
