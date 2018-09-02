@@ -105,7 +105,7 @@ void GradeCalculator()
 	vector<int> scores(studentNum);
 	vector<char> grades(studentNum);
 
-	cout << "Enter " << studentNum << " scores: ";
+	cout << "Enter " << studentNum << " scores: " << endl;
 
 	int best = -1;
 	for (int i = 0; i < studentNum; i++) {
