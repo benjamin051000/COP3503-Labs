@@ -110,6 +110,13 @@ void GradeCalculator()
 	int best = -1;
 	for (int i = 0; i < studentNum; i++) {
 		cin >> scores[i];
+		if (!cin) {
+			//Clear cin and start over
+			cout << "\nInvalid input." << endl;
+			cin.clear();
+			cin.ignore(1000, '\n');
+			return;
+		}
 		if (best < scores[i]) {
 			best = scores[i];
 		}
@@ -131,7 +138,7 @@ void GradeCalculator()
 		else {
 			grades[i] = 'F';
 		}
-		cout << "Student " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i] << endl;
+		cout << endl << "Student " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i];
 	}
 }
 
