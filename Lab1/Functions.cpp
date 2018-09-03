@@ -8,7 +8,7 @@ using namespace std;
 void menu()
 {
 	int input;
-	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: \n";
+	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: ";
 	cin >> input;
 
 	if (!cin)
