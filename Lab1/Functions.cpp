@@ -8,7 +8,7 @@ using namespace std;
 void menu()
 {
 	int input;
-	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number:\n";
+	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: ";
 	cin >> input;
 
 	if(!cin)
@@ -45,7 +45,7 @@ void menu()
 
 void QuadraticRoot()
 {
-	cout << "Enter a, b, c: ";
+	cout << "Enter a, b, c: \n";
 	double a, b, c;
 	cin >> a; //Check if they're integers?
 	cin >> b;
@@ -71,18 +71,18 @@ void QuadraticRoot()
 		cout << "The equation has one root: ";
 	}
 	else {
-		cout << "The equation has no real roots";
+		cout << "The equation has no real roots.";
 		return;
 	}
 
 	//Compute the roots
 	//Positive root
-	double posRoot = (-b + sqrt(discriminant)) / 2 * a;
+	double posRoot = (-b + sqrt(discriminant)) / (2 * a);
 	cout << posRoot;
 
 	//Negative root
 	if (twoRoots) {
-		double negRoot = (-b - sqrt(discriminant)) / 2 * a;
+		double negRoot = (-b - sqrt(discriminant)) / (2 * a);
 		cout << " and " << negRoot;
 	}
 	cout << endl;
@@ -105,7 +105,7 @@ void GradeCalculator()
 	vector<int> scores(studentNum);
 	vector<char> grades(studentNum);
 
-	cout << "Enter " << studentNum << " scores: " << endl;
+	cout << "Enter " << studentNum << " scores: ";
 
 	int best = -1;
 	for (int i = 0; i < studentNum; i++) {
@@ -140,12 +140,13 @@ void GradeCalculator()
 		}
 		cout << endl << "Student " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i];
 	}
+	cout << endl;
 }
 
 void CreditCardValidator()
 {
 	long long cardNum;
-	cout << "Enter a credit card number: ";
+	cout << "Enter a credit card number: \n";
 
 	cin >> cardNum;
 
