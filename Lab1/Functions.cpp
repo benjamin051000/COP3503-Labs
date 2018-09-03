@@ -8,7 +8,7 @@ using namespace std;
 void menu()
 {
 	int input;
-	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: ";
+	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: \n";
 	cin >> input;
 
 	if (!cin)
@@ -138,7 +138,7 @@ void GradeCalculator()
 void CreditCardValidator()
 {
 	long long cardNum;
-	cout << "\nEnter a credit card number: \n";
+	cout << "\nEnter a credit card number: ";
 
 	cin >> cardNum;
 
