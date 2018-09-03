@@ -11,19 +11,11 @@ void menu()
 	cout << "1. Quadratic Root\n2. Grade Calculator\n3. Credit Card Validator\nEnter a number: ";
 	cin >> input;
 
-	if(!cin)
+	if (!cin)
 	{
-		if (input <= 0 || input > 3) {
-			//Clear cin and start over
-			cout << "\nInput out of range." << endl;
-			cin.clear();
-			cin.ignore(1000, '\n');
-			return;
-		}
-		
-		//Otherwise, it's not an int
+		//it's not an int
 		//Clear cin and start over
-		cout << "\nInvalid input." << endl;
+		cout << "\nInvalid input!" << endl;
 		cin.clear();
 		cin.ignore(1000, '\n');
 		return;
@@ -39,7 +31,7 @@ void menu()
 		break;
 	case 3: CreditCardValidator();
 		break;
-	default: cout << "Something went wrong.";
+	default: cout << "\nInput out of range!";
 	}
 }
 
@@ -90,7 +82,7 @@ void QuadraticRoot()
 
 void GradeCalculator()
 {
-	cout << "Enter the number of students: ";
+	cout << "\nEnter the number of students: ";
 	int studentNum;
 	cin >> studentNum;
 
@@ -105,7 +97,7 @@ void GradeCalculator()
 	vector<int> scores(studentNum);
 	vector<char> grades(studentNum);
 
-	cout << "Enter " << studentNum << " scores: ";
+	//cout << "Enter " << studentNum << " scores: ";
 
 	int best = -1;
 	for (int i = 0; i < studentNum; i++) {
@@ -138,7 +130,7 @@ void GradeCalculator()
 		else {
 			grades[i] = 'F';
 		}
-		cout << endl << "Student " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i];
+		cout << "\nStudent " << i + 1 << " - Score: " << scores[i] << ", Letter: " << grades[i];
 	}
 	cout << endl;
 }
@@ -146,7 +138,7 @@ void GradeCalculator()
 void CreditCardValidator()
 {
 	long long cardNum;
-	cout << "Enter a credit card number: \n";
+	cout << "\nEnter a credit card number: \n";
 
 	cin >> cardNum;
 
@@ -195,7 +187,7 @@ int sumOfDoubleEvenPlace(long long number)
 	while (number > 0) {
 		int digit = (int)((number % 100) / 10);
 		number /= 100;
-		
+
 		sum += getDigit(2 * digit);
 	}
 	return sum;
