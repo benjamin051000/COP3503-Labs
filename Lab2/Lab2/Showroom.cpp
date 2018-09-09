@@ -1,27 +1,33 @@
 #include "Showroom.h"
 #include <iostream>
 
-void Showroom::AddVehicle(const Vehicle * v)
+void Showroom::AddVehicle(const Vehicle* v)
 {
+	if (numVehicles < maxCapacity) {
+		vehicles[numVehicles] = *v;
+		numVehicles++;
+	}
 }
 
 void Showroom::ShowInventory() const
 {
+	std::cout << name << std::endl;
+	//todo: show all the vehicles too
 }
 
-const Vehicle * Showroom::GetVehicleList() const
+const Vehicle* Showroom::GetVehicleList() const
 {
-	return nullptr;
+	return vehicles;
 }
 
 unsigned int Showroom::GetCapacity() const
 {
-	return 0;
+	return maxCapacity;
 }
 
 unsigned int Showroom::GetCount() const
 {
-	return 0;
+	return numVehicles;
 }
 
 const char * Showroom::GetName() const
@@ -35,14 +41,17 @@ Showroom::Showroom()
 	maxCapacity = 0;
 }
 
-Showroom::Showroom(std::string name, int maxCapacity)
+Showroom::Showroom(std::string name = "", int maxCapacity = 0)
 {
 	name = name;
 	maxCapacity = maxCapacity;
-	//Initialize vector somehow
+	vehicles = new Vehicle[maxCapacity];
 }
 
 Showroom::~Showroom()
 {
-	std::cout << "Showroom destructor invoked.";
+	delete &maxCapacity;
+	delete &numVehicles;
+	delete[] vehicles;
+	std::cout << "Showroom destroyed.";
 }

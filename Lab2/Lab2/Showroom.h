@@ -1,12 +1,11 @@
 #pragma once
 #include "Vehicle.h"
-#include <vector>
 #include <string>
 
 class Showroom {
 public:
 	//Store a Vehicle in the first available spot
-	void AddVehicle(const Vehicle *v);
+	void AddVehicle(const Vehicle* v);
 	//Show the name of this object and all of its vehicles
 	void ShowInventory() const;
 
@@ -23,7 +22,7 @@ public:
 
 private:
 	std::string name;
-	std::vector<Vehicle> *cars;
+	Vehicle* vehicles; //pointer to the array of vehicles
 	int maxCapacity;
 	int numVehicles;
 };

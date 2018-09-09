@@ -1,40 +1,47 @@
 #include "Vehicle.h"
 #include <iostream>
 
-Vehicle::Vehicle()
-{
-	make = "";
-	model = "";
-	year = -1;
-	miles = -1;
-	price = -1.0f;
-}
-
-Vehicle::Vehicle(string make, string model, int year, int miles, float price)
+Vehicle::Vehicle(string make = "", string model = "", int year = -1, int price = -1, int miles = 0)
 {
 	make = make;
 	model = model;
 	year = year;
-	miles = miles;
 	price = price;
+	miles = miles;
 }
 
-Vehicle::Vehicle(Vehicle &car) //probably broken lol
+Vehicle::Vehicle() {
+	make = "";
+	model = "";
+	year = -1;
+	price = -1;
+	miles = 0;
+}
+
+Vehicle::Vehicle(Vehicle &v) //doublecheck
 {
-	make = car.make;
-	model = car.model;
-	year = car.year;
-	miles = car.miles;
-	price = car.price;
+	this->make = v.make;
+	this->model = v.model;
+	this->year = v.year;
+	this->miles = v.miles;
+	this->price = v.price;
 }
 
-Vehicle::~Vehicle()
-{
-	std::cout << "Vehicle destructor invoked.";
-}
+//Vehicle::~Vehicle() //not really necessary, as there isn't any dynamic allocation in Vehicle class
+//{
+//	delete &make;
+//	delete &model;
+//	delete &year;
+//	delete &miles;
+//	delete &price;
+//
+//	std::cout << "Vehicle destroyed.";
+//}
 
+//Verify with zyLabs to correct output
 void Vehicle::Display() const
 {
+	std::cout << GetYearMakeModel() << " " << miles << " $" << price << std::endl;
 }
 
 string Vehicle::GetYearMakeModel() const
@@ -42,8 +49,7 @@ string Vehicle::GetYearMakeModel() const
 	return year + " " + make + " " + model;
 }
 
-float Vehicle::GetPrice() const
+int Vehicle::GetPrice() const
 {
 	return price;
-	//return this->price; ?
 }
