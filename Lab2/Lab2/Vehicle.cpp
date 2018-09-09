@@ -18,7 +18,7 @@ Vehicle::Vehicle() {
 	miles = 0;
 }
 
-Vehicle::Vehicle(Vehicle &v) //doublecheck
+Vehicle::Vehicle(Vehicle &v) //copy constructor
 {
 	this->make = v.make;
 	this->model = v.model;

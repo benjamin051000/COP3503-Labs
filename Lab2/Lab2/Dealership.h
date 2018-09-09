@@ -6,7 +6,7 @@ class Dealership {
 public:
 	Dealership();
 	~Dealership();
-	Dealership(Dealership &d);
+	Dealership(Dealership& d);
 	Dealership(string name, int maxCapacity);
 	void AddShowroom(const Showroom* s);
 	void ShowInventory();
@@ -14,8 +14,9 @@ public:
 
 
 private:
-	Showroom* showrooms;
+	
 	string name;
 	int numShowrooms;
 	int maxCapacity;
+	Showroom* showrooms;
 };

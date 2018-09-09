@@ -19,6 +19,7 @@ public:
 	Showroom();
 	Showroom(std::string name, int maxCapacity);
 	~Showroom();
+	Showroom(const Showroom& s);
 
 private:
 	std::string name;

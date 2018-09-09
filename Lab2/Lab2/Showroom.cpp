@@ -38,6 +38,7 @@ const char * Showroom::GetName() const
 Showroom::Showroom()
 {
 	name = "";
+	numVehicles = 0;
 	maxCapacity = 0;
 }
 
@@ -54,4 +55,9 @@ Showroom::~Showroom()
 	delete &numVehicles;
 	delete[] vehicles;
 	std::cout << "Showroom destroyed.";
+}
+
+Showroom::Showroom(const Showroom& s)
+{
+
 }
