@@ -16,6 +16,7 @@ void Showroom::ShowInventory() const {
 		//std::cout << "vehicle " << i << ": " << std::endl;
 		vehicles[i].Display();
 	}
+	std::cout << std::endl;
 }
 
 const Vehicle* Showroom::GetVehicleList() const {

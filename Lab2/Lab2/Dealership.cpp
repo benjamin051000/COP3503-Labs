@@ -42,15 +42,15 @@ void Dealership::ShowInventory() const {
 float Dealership::GetAveragePrice() {
 	int sum = 0, total = 0;
 
-	for (int i = 0; i < maxCapacity; i++) {
-		for (unsigned int j = 0; j < showrooms[i].GetCapacity(); j++) {
-			sum += showrooms[i].GetVehicleList()[j].GetPrice();
+	for (int s = 0; s < numShowrooms; s++) {
+		for (unsigned int v = 0; v < showrooms[s].GetCount(); v++) {
+			sum += showrooms[s].GetVehicleList()[v].GetPrice();
 			total++;
 		}
 	}
 
-	//std::cout << "total: " << total << std::endl << "sum: " << sum << std::endl << "avg: " << ((float)(sum) / (float)(total)) << std::endl;
-	return ((float)(sum) / (float)(total));
+	
+	return (float)(sum) / total; //casts entire expression to float
 }
 
 Dealership Dealership::operator=(const Dealership &d) {
