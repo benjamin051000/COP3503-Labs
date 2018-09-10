@@ -6,7 +6,7 @@ class Vehicle {
 public:
 	Vehicle();
 	Vehicle(string make, string model, int year, int price, int miles); //not sure if order is correct
-	Vehicle(Vehicle &v);
+	Vehicle(const Vehicle &v);
 	
 	//Print all the information on a single line
 	void Display() const;
@@ -17,10 +17,13 @@ public:
 	//How much to buy this?
 	int GetPrice() const;
 
+	Vehicle operator=(const Vehicle &v);
+
 private:
 	string make;
 	string model;
 	int year;
 	int price;
 	int miles;
+	void set(const Vehicle &v);
 };

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Showroom.h"
 #include <iostream>
 
@@ -12,7 +13,9 @@ void Showroom::AddVehicle(const Vehicle* v)
 void Showroom::ShowInventory() const
 {
 	std::cout << name << std::endl;
-	//todo: show all the vehicles too
+	for (int i = 0; i < maxCapacity; i++) {
+		vehicles[i].Display();
+	}
 }
 
 const Vehicle* Showroom::GetVehicleList() const
@@ -53,11 +56,20 @@ Showroom::~Showroom()
 {
 	delete &maxCapacity;
 	delete &numVehicles;
-	delete[] vehicles;
+	if (vehicles == nullptr) {
+		delete[] vehicles; //breaks!
+		vehicles = nullptr;
+	}
 	std::cout << "Showroom destroyed.";
 }
 
 Showroom::Showroom(const Showroom& s)
 {
-
+	this->maxCapacity = s.maxCapacity;
+	this->numVehicles = s.numVehicles;
+	vehicles = new Vehicle[maxCapacity];
+	//Copy over each vehicle
+	for (int i = 0; i < maxCapacity; i++) {
+		this->vehicles[i] = s.vehicles[i];
+	}
 }

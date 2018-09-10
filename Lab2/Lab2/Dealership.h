@@ -9,7 +9,7 @@ public:
 	Dealership(Dealership& d);
 	Dealership(string name, int maxCapacity);
 	void AddShowroom(const Showroom* s);
-	void ShowInventory();
+	void ShowInventory() const;
 	unsigned int GetAveragePrice();
 
 

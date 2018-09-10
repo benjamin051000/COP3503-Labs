@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Dealership.h"
 #include <iostream>
 
@@ -11,7 +12,7 @@ Dealership::Dealership()
 
 Dealership::~Dealership()
 {
-	delete[] showrooms;
+	//delete[] showrooms;
 	std::cout << "Dealership destroyed." << std::endl;
 }
 
@@ -44,13 +45,28 @@ void Dealership::AddShowroom(const Showroom* s)
 	}
 }
 
-void Dealership::ShowInventory()
+void Dealership::ShowInventory() const
 {
-
+	using namespace std; //only in this scope
+	cout << name << endl;
+	for (int i = 0; i < maxCapacity; i++) {
+		for (int j = 0; j < showrooms[i].GetCapacity(); j++) {
+			showrooms[i].ShowInventory();
+		}
+	}
 }
 
 unsigned int Dealership::GetAveragePrice()
 {
 	int sum = 0;
-	return 0;
+	int total = 0;
+	for (int i = 0; i < maxCapacity; i++) {
+		for (int j = 0; j < showrooms[i].GetCapacity(); j++) {
+			sum += showrooms[i].GetVehicleList()[j].GetPrice();
+			total++;
+		}
+	}
+
+	std::cout << total << std::endl << sum << std::endl;
+	return sum / total;
 }

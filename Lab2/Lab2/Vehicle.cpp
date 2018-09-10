@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "Vehicle.h"
 #include <iostream>
 
-Vehicle::Vehicle(string make = "", string model = "", int year = -1, int price = -1, int miles = 0)
+Vehicle::Vehicle(string make, string model, int year, int price, int miles)
 {
 	make = make;
 	model = model;
@@ -18,16 +19,13 @@ Vehicle::Vehicle() {
 	miles = 0;
 }
 
-Vehicle::Vehicle(Vehicle &v) //copy constructor
+Vehicle::Vehicle(const Vehicle &v) //copy constructor
 {
-	this->make = v.make;
-	this->model = v.model;
-	this->year = v.year;
-	this->miles = v.miles;
-	this->price = v.price;
+	set(v);
 }
 
-//Vehicle::~Vehicle() //not really necessary, as there isn't any dynamic allocation in Vehicle class
+
+//Vehicle::~Vehicle() //unecessary, as there isn't any dynamic allocation in Vehicle class
 //{
 //	delete &make;
 //	delete &model;
@@ -52,4 +50,19 @@ string Vehicle::GetYearMakeModel() const
 int Vehicle::GetPrice() const
 {
 	return price;
+}
+
+Vehicle Vehicle::operator=(const Vehicle & v)
+{
+	set(v);
+	return *this;
+}
+
+void Vehicle::set(const Vehicle & v)
+{
+	this->make = v.make;
+	this->model = v.model;
+	this->year = v.year;
+	this->price = v.price;
+	this->miles = v.miles;
 }
