@@ -4,14 +4,17 @@
 
 class Dealership {
 public:
+	//Constructors
 	Dealership();
 	~Dealership();
 	Dealership(Dealership& d);
 	Dealership(const char* name, int maxCapacity);
+
+	Dealership operator=(const Dealership &d);
+
 	void AddShowroom(const Showroom* s);
 	void ShowInventory() const;
 	unsigned int GetAveragePrice();
-	Dealership operator=(const Dealership &d);
 
 private:
 	
