@@ -33,6 +33,7 @@ void Dealership::AddShowroom(const Showroom* s) {
 }
 
 void Dealership::ShowInventory() const {
+	std::cout << "Inventory of " << name << std::endl;
 	for (int i = 0; i < numShowrooms; i++) {
 		showrooms[i].ShowInventory();
 	}

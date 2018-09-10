@@ -23,12 +23,12 @@ Vehicle::Vehicle(const Vehicle &v) {set(v);}
 //Verify with zyLabs to correct output
 void Vehicle::Display() const {
 	using namespace std;
-	cout << year << " " << make << " " << model << " " << miles << " $" << price << endl;
+	cout << GetYearMakeModel() << "\t$" << price << "\t" << miles << endl;
 }
 
 string Vehicle::GetYearMakeModel() const {
 	//return this->year + " " + this->make + " " + this->model;
-	return year + " " + make + " " + model;
+	return year + "\t" + make + "\t" + model;
 }
 
 int Vehicle::GetPrice() const {

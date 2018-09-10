@@ -11,7 +11,7 @@ void Showroom::AddVehicle(const Vehicle* v) {
 }
 
 void Showroom::ShowInventory() const {
-	//std::cout << "displaying " << numVehicles << " vehicles:" << std::endl;
+	std::cout << "Vehicles in " << name << std::endl;
 	for (int i = 0; i < numVehicles; i++) {
 		//std::cout << "vehicle " << i << ": " << std::endl;
 		vehicles[i].Display();
