@@ -6,15 +6,12 @@
 Dealership::Dealership() {
 	name = nullptr;
 	numShowrooms = 0;
-	maxCapacity = 0;
+	maxCapacity = 1;
 	showrooms = nullptr;
 }
 
 Dealership::~Dealership() {
-	if (showrooms != nullptr) {
-		delete[] showrooms;
-	}
-	
+	delete[] showrooms;
 	std::cout << "Dealership destroyed." << std::endl;
 }
 
@@ -23,8 +20,10 @@ Dealership::Dealership(Dealership& d) {
 }
 
 Dealership::Dealership(const char* name, int maxCapacity) {
-	name = name;
-	showrooms = new Showroom[maxCapacity];
+	this->name = name;
+	this->maxCapacity = maxCapacity;
+	this->numShowrooms = 0;
+	this->showrooms = new Showroom[maxCapacity];
 }
 
 void Dealership::AddShowroom(const Showroom* s) {
@@ -35,8 +34,8 @@ void Dealership::AddShowroom(const Showroom* s) {
 }
 
 void Dealership::ShowInventory() const {
-	
-	//cout << *name << endl;
+	using namespace std;
+	//cout << maxCapacity << " showrooms to go through..." << endl;
 	for (int i = 0; i < maxCapacity; i++) {
 		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
 			showrooms[i].ShowInventory();
@@ -45,8 +44,8 @@ void Dealership::ShowInventory() const {
 }
 
 unsigned int Dealership::GetAveragePrice() {
-	int sum = 0;
-	int total = 0;
+	int sum = 0, total = 0;
+
 	for (int i = 0; i < maxCapacity; i++) {
 		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
 			sum += showrooms[i].GetVehicleList()[j].GetPrice();
@@ -73,5 +72,6 @@ void Dealership::set(const Dealership &d) {
 	//copy each individual showroom
 	for (int i = 0; i < maxCapacity; i++) {
 		this->showrooms[i] = d.showrooms[i];
+		this->numShowrooms++;
 	}
 }

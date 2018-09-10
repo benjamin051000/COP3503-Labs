@@ -3,11 +3,11 @@
 #include <iostream>
 
 Vehicle::Vehicle(string make, string model, int year, int price, int miles) {
-	make = make;
-	model = model;
-	year = year;
-	price = price;
-	miles = miles;
+	this->make = make;
+	this->model = model;
+	this->year = year;
+	this->price = price;
+	this->miles = miles;
 }
 
 Vehicle::Vehicle() {
@@ -22,11 +22,12 @@ Vehicle::Vehicle(const Vehicle &v) {set(v);}
 
 //Verify with zyLabs to correct output
 void Vehicle::Display() const {
-	std::cout << GetYearMakeModel() << " " << miles << " $" << price << std::endl;
+	using namespace std;
+	cout << GetYearMakeModel() << " " << this->miles << " $" << this->price << endl;
 }
 
 string Vehicle::GetYearMakeModel() const {
-	return year + " " + make + " " + model;
+	return this->year + " " + this->make + " " + this->model; //mem violation ?
 }
 
 int Vehicle::GetPrice() const {

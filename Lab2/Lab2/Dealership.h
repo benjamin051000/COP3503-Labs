@@ -18,7 +18,7 @@ public:
 
 private:
 	
-	char* name;
+	const char* name;
 	int numShowrooms;
 	int maxCapacity;
 	Showroom* showrooms;

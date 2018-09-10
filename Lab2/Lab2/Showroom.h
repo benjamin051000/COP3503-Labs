@@ -24,7 +24,7 @@ public:
 	const char* GetName() const;
 
 private:
-	char* name;
+	const char* name;
 	Vehicle* vehicles;
 	int maxCapacity;
 	int numVehicles;
