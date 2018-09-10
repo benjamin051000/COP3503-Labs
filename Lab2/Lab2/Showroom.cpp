@@ -58,7 +58,10 @@ Showroom::~Showroom()
 	std::cout << "." << std::endl;
 	delete &maxCapacity;
 	delete &numVehicles;
-	//delete[] vehicles; //access violation
+	if (vehicles != nullptr) {
+		delete[] vehicles; //access violation
+	}
+	
 	vehicles = nullptr;
 	std::cout << "Showroom destroyed." << std::endl;
 }

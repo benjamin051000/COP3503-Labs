@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Dealership.h"
 #include <iostream>
+#include <iomanip>
 
 Dealership::Dealership()
 {
@@ -12,7 +13,10 @@ Dealership::Dealership()
 
 Dealership::~Dealership()
 {
-	delete[] showrooms;
+	if (showrooms != nullptr) {
+		delete[] showrooms;
+	}
+	
 	std::cout << "Dealership destroyed." << std::endl;
 }
 
@@ -38,10 +42,10 @@ void Dealership::AddShowroom(const Showroom* s)
 
 void Dealership::ShowInventory() const
 {
-	using namespace std; //only in this scope
+	
 	//cout << *name << endl;
 	for (int i = 0; i < maxCapacity; i++) {
-		for (int j = 0; j < showrooms[i].GetCapacity(); j++) {
+		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
 			showrooms[i].ShowInventory();
 		}
 	}
@@ -52,7 +56,7 @@ unsigned int Dealership::GetAveragePrice()
 	int sum = 0;
 	int total = 0;
 	for (int i = 0; i < maxCapacity; i++) {
-		for (int j = 0; j < showrooms[i].GetCapacity(); j++) {
+		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
 			sum += showrooms[i].GetVehicleList()[j].GetPrice();
 			total++;
 		}
@@ -75,6 +79,7 @@ void Dealership::set(const Dealership &d)
 	this->maxCapacity = d.maxCapacity;
 	
 	showrooms = new Showroom[maxCapacity];
+
 	//copy each individual showroom
 	for (int i = 0; i < maxCapacity; i++) {
 		this->showrooms[i] = d.showrooms[i];
