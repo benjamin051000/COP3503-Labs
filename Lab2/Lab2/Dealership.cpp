@@ -7,7 +7,6 @@ Dealership::Dealership() {
 	name = "";
 	numShowrooms = 0;
 	maxCapacity = 1;
-	//showrooms = nullptr;
 }
 
 Dealership::~Dealership() {
@@ -37,9 +36,11 @@ void Dealership::ShowInventory() const {
 	for (int i = 0; i < numShowrooms; i++) {
 		showrooms[i].ShowInventory();
 	}
+	std::cout << "Average price of the cars in the dealership: $" << std::fixed << std::setprecision(2);
+	std::cout << GetAveragePrice() << std::endl;
 }
 
-float Dealership::GetAveragePrice() {
+float Dealership::GetAveragePrice() const {
 	int sum = 0, total = 0;
 
 	for (int s = 0; s < numShowrooms; s++) {
