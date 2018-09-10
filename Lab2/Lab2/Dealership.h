@@ -7,16 +7,17 @@ public:
 	Dealership();
 	~Dealership();
 	Dealership(Dealership& d);
-	Dealership(string name, int maxCapacity);
+	Dealership(const char* name, int maxCapacity);
 	void AddShowroom(const Showroom* s);
 	void ShowInventory() const;
 	unsigned int GetAveragePrice();
-
+	Dealership operator=(const Dealership &d);
 
 private:
 	
-	string name;
+	char* name;
 	int numShowrooms;
 	int maxCapacity;
 	Showroom* showrooms;
+	void set(const Dealership &d);
 };

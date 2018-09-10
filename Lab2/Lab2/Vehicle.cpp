@@ -24,18 +24,6 @@ Vehicle::Vehicle(const Vehicle &v) //copy constructor
 	set(v);
 }
 
-
-//Vehicle::~Vehicle() //unecessary, as there isn't any dynamic allocation in Vehicle class
-//{
-//	delete &make;
-//	delete &model;
-//	delete &year;
-//	delete &miles;
-//	delete &price;
-//
-//	std::cout << "Vehicle destroyed.";
-//}
-
 //Verify with zyLabs to correct output
 void Vehicle::Display() const
 {

@@ -17,15 +17,16 @@ public:
 
 	//Constructors
 	Showroom();
-	Showroom(std::string name, int maxCapacity);
+	Showroom(const char* name, int maxCapacity);
 	~Showroom();
 	Showroom(const Showroom& s);
 
-
+	Showroom operator=(const Showroom &v);
 
 private:
-	std::string name;
+	char* name;
 	Vehicle* vehicles; //pointer to the array of vehicles
 	int maxCapacity;
 	int numVehicles;
+	void set(const Showroom &s);
 };

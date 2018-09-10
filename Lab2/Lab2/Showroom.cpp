@@ -33,19 +33,19 @@ unsigned int Showroom::GetCount() const
 	return numVehicles;
 }
 
-const char * Showroom::GetName() const
+const char* Showroom::GetName() const
 {
-	return nullptr;
+	return name;
 }
 
 Showroom::Showroom()
 {
-	name = "";
+	name = nullptr;
 	numVehicles = 0;
 	maxCapacity = 0;
 }
 
-Showroom::Showroom(std::string name = "", int maxCapacity = 0)
+Showroom::Showroom(const char* name, int maxCapacity)
 {
 	name = name;
 	maxCapacity = maxCapacity;
@@ -54,19 +54,28 @@ Showroom::Showroom(std::string name = "", int maxCapacity = 0)
 
 Showroom::~Showroom()
 {
+	std::cout << "Showroom decon called." << std::endl;
+	std::cout << "." << std::endl;
 	delete &maxCapacity;
 	delete &numVehicles;
-	if (vehicles == nullptr) {
-		delete[] vehicles; //breaks!
-		vehicles = nullptr;
-	}
-	std::cout << "Showroom destroyed.";
+	//delete[] vehicles; //access violation
+	vehicles = nullptr;
+	std::cout << "Showroom destroyed." << std::endl;
 }
 
-Showroom::Showroom(const Showroom& s)
+Showroom::Showroom(const Showroom& s) {set(s);}
+
+Showroom Showroom::operator=(const Showroom &s)
+{
+	set(s);
+	return *this;
+}
+
+void Showroom::set(const Showroom & s)
 {
 	this->maxCapacity = s.maxCapacity;
-	this->numVehicles = s.numVehicles;
+	this->numVehicles = s.maxCapacity;
+	
 	vehicles = new Vehicle[maxCapacity];
 	//Copy over each vehicle
 	for (int i = 0; i < maxCapacity; i++) {

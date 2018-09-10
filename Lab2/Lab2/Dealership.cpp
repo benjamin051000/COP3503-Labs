@@ -4,7 +4,7 @@
 
 Dealership::Dealership()
 {
-	name = "";
+	name = nullptr;
 	numShowrooms = 0;
 	maxCapacity = 0;
 	showrooms = nullptr;
@@ -12,28 +12,19 @@ Dealership::Dealership()
 
 Dealership::~Dealership()
 {
-	//delete[] showrooms;
+	delete[] showrooms;
 	std::cout << "Dealership destroyed." << std::endl;
 }
 
 Dealership::Dealership(Dealership& d)
 {
-	this->name = d.name;
-	this->numShowrooms = d.numShowrooms;
-	this->maxCapacity = d.maxCapacity;
-
-	showrooms = new Showroom[maxCapacity];
-	//copy each individual showroom
-	for (int i = 0; i < maxCapacity; i++) {
-		showrooms[i] = d.showrooms[i]; //does this need the operator= ?
-	}
+	set(d);
 }
 
-Dealership::Dealership(string name, int maxCapacity)
+Dealership::Dealership(const char* name, int maxCapacity)
 {
 	name = name;
 	showrooms = new Showroom[maxCapacity];
-	
 }
 
 void Dealership::AddShowroom(const Showroom* s)
@@ -41,14 +32,14 @@ void Dealership::AddShowroom(const Showroom* s)
 	if (numShowrooms < maxCapacity)
 	{
 		showrooms[numShowrooms] = *s;
-		maxCapacity++;
+		numShowrooms++;
 	}
 }
 
 void Dealership::ShowInventory() const
 {
 	using namespace std; //only in this scope
-	cout << name << endl;
+	//cout << *name << endl;
 	for (int i = 0; i < maxCapacity; i++) {
 		for (int j = 0; j < showrooms[i].GetCapacity(); j++) {
 			showrooms[i].ShowInventory();
@@ -69,4 +60,23 @@ unsigned int Dealership::GetAveragePrice()
 
 	std::cout << total << std::endl << sum << std::endl;
 	return sum / total;
+}
+
+Dealership Dealership::operator=(const Dealership &d)
+{
+	set(d);
+	return *this;
+}
+
+void Dealership::set(const Dealership &d)
+{
+	this->name = d.name;
+	this->numShowrooms = 0;
+	this->maxCapacity = d.maxCapacity;
+	
+	showrooms = new Showroom[maxCapacity];
+	//copy each individual showroom
+	for (int i = 0; i < maxCapacity; i++) {
+		this->showrooms[i] = d.showrooms[i];
+	}
 }
