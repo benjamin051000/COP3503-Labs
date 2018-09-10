@@ -14,7 +14,7 @@ public:
 
 	void AddShowroom(const Showroom* s);
 	void ShowInventory() const;
-	unsigned int GetAveragePrice();
+	float GetAveragePrice();
 
 private:
 	

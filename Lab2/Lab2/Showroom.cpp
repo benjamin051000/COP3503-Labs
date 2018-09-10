@@ -5,13 +5,15 @@
 void Showroom::AddVehicle(const Vehicle* v) {
 	if (numVehicles < maxCapacity) {
 		vehicles[numVehicles] = *v;
-		numVehicles++;
+		numVehicles += 1;
+		//std::cout << name << "---numVehicles is " << numVehicles << std::endl;
 	}
 }
 
 void Showroom::ShowInventory() const {
-	//std::cout << name << ", " << maxCapacity << "..." << std::endl;
-	for (int i = 0; i < maxCapacity; i++) {
+	//std::cout << "displaying " << numVehicles << " vehicles:" << std::endl;
+	for (int i = 0; i < numVehicles; i++) {
+		//std::cout << "vehicle " << i << ": " << std::endl;
 		vehicles[i].Display();
 	}
 }
@@ -33,8 +35,8 @@ const char* Showroom::GetName() const {
 }
 
 Showroom::Showroom() {
-	this->name = nullptr;
-	this->vehicles = nullptr;
+	this->name = "";
+	//this->vehicles = nullptr;
 	this->numVehicles = 0;
 	this->maxCapacity = 0;
 }
@@ -42,6 +44,7 @@ Showroom::Showroom() {
 Showroom::Showroom(const char* name, int maxCapacity) {
 	this->name = name;
 	this->maxCapacity = maxCapacity;
+	this->numVehicles = 0;
 	vehicles = new Vehicle[maxCapacity];
 }
 
@@ -65,7 +68,7 @@ void Showroom::set(const Showroom &s) {
 	
 	vehicles = new Vehicle[maxCapacity];
 	//Copy over each vehicle
-	for (int i = 0; i < maxCapacity; i++) {
+	for (int i = 0; i < s.numVehicles; i++) {
 		this->vehicles[i] = s.vehicles[i];
 		this->numVehicles++;
 	}

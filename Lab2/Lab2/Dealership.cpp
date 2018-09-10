@@ -4,15 +4,14 @@
 #include <iomanip> //used for rounding the average price (todo)
 
 Dealership::Dealership() {
-	name = nullptr;
+	name = "";
 	numShowrooms = 0;
 	maxCapacity = 1;
-	showrooms = nullptr;
+	//showrooms = nullptr;
 }
 
 Dealership::~Dealership() {
 	delete[] showrooms;
-	std::cout << "Dealership destroyed." << std::endl;
 }
 
 Dealership::Dealership(Dealership& d) {
@@ -29,32 +28,28 @@ Dealership::Dealership(const char* name, int maxCapacity) {
 void Dealership::AddShowroom(const Showroom* s) {
 	if (numShowrooms < maxCapacity) {
 		showrooms[numShowrooms] = *s;
-		numShowrooms++;
+		this->numShowrooms++;
 	}
 }
 
 void Dealership::ShowInventory() const {
-	using namespace std;
-	//cout << maxCapacity << " showrooms to go through..." << endl;
-	for (int i = 0; i < maxCapacity; i++) {
-		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
-			showrooms[i].ShowInventory();
-		}
+	for (int i = 0; i < numShowrooms; i++) {
+		showrooms[i].ShowInventory();
 	}
 }
 
-unsigned int Dealership::GetAveragePrice() {
+float Dealership::GetAveragePrice() {
 	int sum = 0, total = 0;
 
 	for (int i = 0; i < maxCapacity; i++) {
-		for (int j = 0; (unsigned)j < showrooms[i].GetCapacity(); j++) {
+		for (unsigned int j = 0; j < showrooms[i].GetCapacity(); j++) {
 			sum += showrooms[i].GetVehicleList()[j].GetPrice();
 			total++;
 		}
 	}
 
-	std::cout << total << std::endl << sum << std::endl;
-	return sum / total;
+	//std::cout << "total: " << total << std::endl << "sum: " << sum << std::endl << "avg: " << ((float)(sum) / (float)(total)) << std::endl;
+	return ((float)(sum) / (float)(total));
 }
 
 Dealership Dealership::operator=(const Dealership &d) {
@@ -70,7 +65,7 @@ void Dealership::set(const Dealership &d) {
 	showrooms = new Showroom[maxCapacity];
 
 	//copy each individual showroom
-	for (int i = 0; i < maxCapacity; i++) {
+	for (int i = 0; i < d.numShowrooms; i++) {
 		this->showrooms[i] = d.showrooms[i];
 		this->numShowrooms++;
 	}
