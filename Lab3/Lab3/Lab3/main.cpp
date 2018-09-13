@@ -41,10 +41,10 @@ void TestFour();
 int main()
 {
 	cout << "**** Testing the Dynamic Array ****" << endl << endl;
-	TestOne();
+	//TestOne();
 	TestTwo();
-	TestThree();
-	TestFour();
+	//TestThree();
+	//TestFour();
 
 	return 0;
 }
@@ -71,7 +71,7 @@ void TestTwo()
 
 	for (int i = 0; i < 5; i++)
 		data2.Add((float)101 / (i + 2));
-
+		
 	for (unsigned int i = 0; i < data2.GetSize(); i++)
 		cout << data2[i] << endl;
 

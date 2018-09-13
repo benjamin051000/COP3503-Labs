@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 
 template<typename T>
 class DynamicArray {
@@ -51,24 +53,26 @@ private:
 /*====================METHOD=IMPLEMENTATIONS==========================*/
 
 template<typename T>
-DynamicArray<T>::DynamicArray(unsigned int size) {
-	size = 0;
-	size = size; //this-> ?
-	data = new T[size];
+DynamicArray<T>::DynamicArray(unsigned int capacity) {
+	this->size = 0;
+	this->capacity = capacity; //this-> ?
+	data = new T[capacity];
 }
 
 template<typename T>
 void DynamicArray<T>::Remove(unsigned int index) {
-	for (unsigned int i = index; i < size - 1; i++) {
-		data[i] = data[i + 1];
+	for (unsigned int i = index; i < size; i++) {
+		data[i] = data[i + 1]; //exception, the size is 0
 	}
 
 	Resize(capacity - 1);
+	size--;
 }
 
+//Initializes an empty array with 10 capacity.
 template<typename T>
 DynamicArray<T>::DynamicArray() {
-	capacity = 0;
+	this->size = 0;
 	capacity = 10;
 
 	data = new T[capacity];
@@ -80,9 +84,7 @@ DynamicArray<T>::~DynamicArray() {
 }
 
 template<typename T>
-DynamicArray<T>::DynamicArray(const DynamicArray& d) {
-	set(d);
-}
+DynamicArray<T>::DynamicArray(const DynamicArray& d) {set(d);}
 
 template<typename T>
 DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& d) {
@@ -93,33 +95,43 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& d) {
 template<typename T>
 void DynamicArray<T>::set(const DynamicArray& d) {
 	capacity = d.capacity;
-	size = 0;
+	this->size = 0;
+	if(data != nullptr)
+		delete[] data;
+
 	data = new T[capacity];
 
-	for (unsigned int i = 0; i < capacity; i++) {
+	for (unsigned int i = 0; i < d.size; i++) {
 		data[i] = d[i];
+		size++;
 	}
 }
 
 
 template<typename T>
 void DynamicArray<T>::Add(const T& element) {
-	//If the array is full, add a slot
+	//While the array is full, add slots
 	if (size >= capacity) {
 		Resize(capacity + 1);
 	}
 
 	//Add the element to the end of the array
 	data[capacity - 1] = element;
+	size++;
 }
 
+//double and half this array!
 template<typename T>
 void DynamicArray<T>::Resize(unsigned int newSize) {
 	T* newArr = new T[newSize];
+	size = 0;
+	capacity = newSize;
 
-	for (unsigned int i = 0; i < newSize; i++)
+	for (unsigned int i = 0; i < newSize; i++) {
 		newArr[i] = data[i]; //shallow copy?
-
+		size++;
+	}
+	
 	if (data != nullptr)
 		delete[] data;
 	
