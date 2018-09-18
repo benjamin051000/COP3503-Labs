@@ -18,7 +18,7 @@ public:
 	const T& At(unsigned int index) const;
 	T &At(unsigned int index);
 
-	//Mutators
+	/*---Mutators---*/
 	//Add an item onto the end of the array, if there is room.
 	//If not, resize it to accomodate space
 	void Add(const T& element);
@@ -62,7 +62,7 @@ DynamicArray<T>::DynamicArray(unsigned int capacity) {
 template<typename T>
 void DynamicArray<T>::Remove(unsigned int index) {
 	for (unsigned int i = index; i < size; i++) {
-		data[i] = data[i + 1]; //exception, the size is 0
+		data[i] = data[i + 1];
 	}
 
 	Resize(capacity - 1);
@@ -79,9 +79,7 @@ DynamicArray<T>::DynamicArray() {
 }
 
 template<typename T>
-DynamicArray<T>::~DynamicArray() {
-	delete[] data;
-}
+DynamicArray<T>::~DynamicArray() {delete[] data;}
 
 template<typename T>
 DynamicArray<T>::DynamicArray(const DynamicArray& d) {set(d);}
@@ -94,8 +92,8 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& d) {
 
 template<typename T>
 void DynamicArray<T>::set(const DynamicArray& d) {
-	capacity = d.capacity;
-	this->size = 0;
+	this->capacity = d.capacity;
+	this->size = d.size;
 	if(data != nullptr)
 		delete[] data;
 
@@ -103,7 +101,6 @@ void DynamicArray<T>::set(const DynamicArray& d) {
 
 	for (unsigned int i = 0; i < d.size; i++) {
 		data[i] = d[i];
-		size++;
 	}
 }
 
@@ -116,7 +113,7 @@ void DynamicArray<T>::Add(const T& element) {
 	}
 
 	//Add the element to the end of the array
-	data[capacity - 1] = element;
+	data[size] = element;
 	size++;
 }
 
@@ -124,12 +121,15 @@ void DynamicArray<T>::Add(const T& element) {
 template<typename T>
 void DynamicArray<T>::Resize(unsigned int newSize) {
 	T* newArr = new T[newSize];
-	size = 0;
+	
+	if (newSize < size) {
+		size = newSize;
+	} //otherwise, the array grows by one and size is handled
+
 	capacity = newSize;
 
 	for (unsigned int i = 0; i < newSize; i++) {
 		newArr[i] = data[i]; //shallow copy?
-		size++;
 	}
 	
 	if (data != nullptr)
@@ -154,7 +154,7 @@ template<typename T>
 T& DynamicArray<T>::At(unsigned int index) {return data[index];}
 
 template<typename T>
-const T& DynamicArray<T>::operator[](unsigned int index) const {return data[index];}
+const T& DynamicArray<T>::operator[](unsigned int index) const {return data[index];} //Doesn't throw an index exception
 
 template<typename T>
 T& DynamicArray<T>::operator[](unsigned int index) {return data[index];}

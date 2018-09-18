@@ -41,10 +41,10 @@ void TestFour();
 int main()
 {
 	cout << "**** Testing the Dynamic Array ****" << endl << endl;
-	//TestOne();
+	TestOne();
 	TestTwo();
-	//TestThree();
-	//TestFour();
+	TestThree();
+	TestFour();
 
 	return 0;
 }
@@ -87,7 +87,7 @@ void TestTwo()
 	cout << "Size: " << data2.GetSize() << endl;
 
 	cout << "Attempting to access index[50]...";
-	try { cout << data2[50] << endl; }
+	try { cout << data2[50] << endl; } //doesn't throw an error...
 	catch (const char *msg)
 	{
 		cout << msg << endl;
