@@ -113,7 +113,7 @@ void TestThree()
 		cout << data3[i] << endl;
 
 	cout << "Creating a copy of the list (testing the copy constructor)... " << endl;
-	auto data4 = data3;
+	auto data4 = data3; //causing issues? could be something below
 
 	cout << "\nPrinting copy of dynarray..." << endl;
 	for (unsigned int i = 0; i < data4.GetSize(); i++)
