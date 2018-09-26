@@ -5,15 +5,13 @@
 void Showroom::AddVehicle(const Vehicle* v) {
 	if (numVehicles < maxCapacity) {
 		vehicles[numVehicles] = *v;
-		numVehicles += 1;
-		//std::cout << name << "---numVehicles is " << numVehicles << std::endl;
+		numVehicles++;
 	}
 }
 
 void Showroom::ShowInventory() const {
 	std::cout << "Vehicles in " << name << std::endl;
 	for (int i = 0; i < numVehicles; i++) {
-		//std::cout << "vehicle " << i << ": " << std::endl;
 		vehicles[i].Display();
 	}
 	std::cout << std::endl;
