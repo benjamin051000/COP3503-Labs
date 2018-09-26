@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 template<typename T>
 class ABS {
 	float scaleFactor = 2.0f;
@@ -8,6 +7,7 @@ class ABS {
 	and the index of the next empty space to push to.*/
 	unsigned int top, capacity;
 	T* data;
+	unsigned int numResizes = 0;
 
 	void growArr();
 	void shrinkArr();
@@ -20,9 +20,11 @@ public:
 	ABS(const ABS& d);
 	ABS<T>& operator=(const ABS& d);
 	~ABS();
+	
+	void setSF(float scale);
 
 	//Add to the stack.
-	void push(T& data);
+	void push(T data);
 	//Return top and remove it.
 	T pop();
 	//Return top without removing.
@@ -32,10 +34,13 @@ public:
 	unsigned int getSize();
 	unsigned int getMaxCapacity();
 	T* getData();
+	unsigned int getNumResizes();
+	float getsf();
 };
 
 template<typename T>
 void ABS<T>::growArr() {
+	std::cout << "growing..." << std::endl;
 	//Make the new array
 	capacity = (int)(capacity * scaleFactor);
 	T* newArr = new T[capacity];
@@ -50,6 +55,7 @@ void ABS<T>::growArr() {
 	}
 
 	data = newArr;
+	numResizes++;
 }
 
 template<typename T>
@@ -68,6 +74,7 @@ void ABS<T>::shrinkArr() {
 	}
 
 	data = newArr;
+	numResizes++;
 }
 
 template<typename T>
@@ -108,11 +115,16 @@ ABS<T>& ABS<T>::operator=(const ABS& d) {
 
 template<typename T>
 ABS<T>::~ABS() {
-	delete[] data; //if data != nullptr? data = nullptr?
+	delete[] data;
 }
 
 template<typename T>
-void ABS<T>::push(T& data) {
+void ABS<T>::setSF(float scale) {
+	scaleFactor = scale;
+}
+
+template<typename T>
+void ABS<T>::push(T data) {
 	if (top >= capacity) {
 		growArr();
 	}
@@ -122,18 +134,28 @@ void ABS<T>::push(T& data) {
 
 template<typename T>
 T ABS<T>::pop() {
-	T e = data[--top];
-
-	if (top < capacity / 2) {
-		shrinkArr();
+	if (top == 0) {
+		throw -1;
 	}
+	else {
+		T e = data[--top];
 
-	return e;
+		if (top < (float)capacity / 2) {
+			shrinkArr();
+		}
+
+		return e;
+	}
 }
 
 template<typename T>
 T ABS<T>::peek() {
-	return data[top - 1];
+	if (top == 0) {
+		throw -1;
+	}
+	else {
+		return data[top - 1];
+	}
 }
 
 template<typename T>
@@ -149,4 +171,14 @@ unsigned int ABS<T>::getMaxCapacity() {
 template<typename T>
 T* ABS<T>::getData() {
 	return data;
+}
+
+template<typename T>
+unsigned int ABS<T>::getNumResizes() {
+	return numResizes;
+}
+
+template<typename T>
+inline float ABS<T>::getsf() {
+	return scaleFactor;
 }

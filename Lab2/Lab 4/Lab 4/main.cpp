@@ -1,9 +1,20 @@
 #include "ABS.h"
 #include <iostream>
+#include <chrono>
 using namespace std;
 
 int main() {
-	cout << "Making integer ABS...\n";
+
+	ABS<int>* testABS = new ABS<int>;
+	testABS->setSF(1.5);
+
+	for (int i = 0; i < 100; i++) {
+		testABS->push(i);
+	}
+
+	delete testABS;
+
+	/*cout << "Making integer ABS...\n";
 	ABS<int> intABS;
 	cout << "Size: " << intABS.getSize() << endl;
 	cout << "Max Capacity: " << intABS.getMaxCapacity() << endl;
@@ -14,14 +25,13 @@ int main() {
 		cout << "New Size: " << intABS.getSize() << endl;
 		cout << "New Max Capacity: " << intABS.getMaxCapacity() << endl;
 	}
-	
+
 	cout << "\nPopping items...\n";
 	for (int i = 1; i < 10; i++) {
 		cout << "\nPopped " << intABS.pop() << endl;
 		cout << "New Size: " << intABS.getSize() << endl;
 		cout << "New Max Capacity: " << intABS.getMaxCapacity() << endl;
 	}
-
 
 	cout << "\nMaking float ABS...\n";
 	ABS<float> floatABS(10);
@@ -40,8 +50,7 @@ int main() {
 		cout << "\nPopped " << floatABS.pop() << endl;
 		cout << "New Size: " << floatABS.getSize() << endl;
 		cout << "New Max Capacity: " << floatABS.getMaxCapacity() << endl;
-	}
-
+	}*/
 
 	return 0;
 }
