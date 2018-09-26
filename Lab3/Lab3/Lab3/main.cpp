@@ -71,7 +71,7 @@ void TestTwo()
 
 	for (int i = 0; i < 5; i++)
 		data2.Add((float)101 / (i + 2));
-
+		
 	for (unsigned int i = 0; i < data2.GetSize(); i++)
 		cout << data2[i] << endl;
 
@@ -87,7 +87,7 @@ void TestTwo()
 	cout << "Size: " << data2.GetSize() << endl;
 
 	cout << "Attempting to access index[50]...";
-	try { cout << data2[50] << endl; }
+	try { cout << data2[50] << endl; } //doesn't throw an error...
 	catch (const char *msg)
 	{
 		cout << msg << endl;
@@ -113,7 +113,7 @@ void TestThree()
 		cout << data3[i] << endl;
 
 	cout << "Creating a copy of the list (testing the copy constructor)... " << endl;
-	auto data4 = data3;
+	auto data4 = data3; //causing issues? could be something below
 
 	cout << "\nPrinting copy of dynarray..." << endl;
 	for (unsigned int i = 0; i < data4.GetSize(); i++)

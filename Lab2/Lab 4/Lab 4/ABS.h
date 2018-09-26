@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 template<typename T>
 class ABS {
 	float scaleFactor = 2.0f;
