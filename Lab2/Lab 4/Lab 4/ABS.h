@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 template<typename T>
 class ABS {
 	float scaleFactor = 2.0f;
@@ -22,7 +21,7 @@ public:
 	~ABS();
 
 	//Add to the stack.
-	void push(T& data);
+	void push(T data);
 	//Return top and remove it.
 	T pop();
 	//Return top without removing.
@@ -112,7 +111,7 @@ ABS<T>::~ABS() {
 }
 
 template<typename T>
-void ABS<T>::push(T& data) {
+void ABS<T>::push(T data) {
 	if (top >= capacity) {
 		growArr();
 	}
@@ -122,18 +121,28 @@ void ABS<T>::push(T& data) {
 
 template<typename T>
 T ABS<T>::pop() {
-	T e = data[--top];
-
-	if (top < capacity / 2) {
-		shrinkArr();
+	if (top == 0) {
+		throw -1;
 	}
+	else {
+		T e = data[--top];
 
-	return e;
+		if (top < (float)capacity / 2) {
+			shrinkArr();
+		}
+
+		return e;
+	}
 }
 
 template<typename T>
 T ABS<T>::peek() {
-	return data[top - 1];
+	if (top == 0) {
+		throw -1;
+	}
+	else {
+		return data[top - 1];
+	}
 }
 
 template<typename T>
