@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+using namespace std;
+
 template<typename T>
 class ABS {
 	float scaleFactor = 2.0f;
@@ -8,6 +10,9 @@ class ABS {
 	unsigned int top, capacity;
 	T* data;
 
+	//Extra Credit
+	unsigned int numResizes = 0;
+
 	void growArr();
 	void shrinkArr();
 	
@@ -15,10 +20,12 @@ class ABS {
 	void set(const ABS& d);
 public:
 	ABS();
-	ABS(unsigned int capacity);
+	//ABS(unsigned int capacity);
 	ABS(const ABS& d);
 	ABS<T>& operator=(const ABS& d);
 	~ABS();
+	//Extra Credit
+	ABS(float scaleFactor);
 
 	//Add to the stack.
 	void push(T data);
@@ -31,6 +38,8 @@ public:
 	unsigned int getSize();
 	unsigned int getMaxCapacity();
 	T* getData();
+	//Extra Credit
+	unsigned int getResizes();
 };
 
 template<typename T>
@@ -49,6 +58,7 @@ void ABS<T>::growArr() {
 	}
 
 	data = newArr;
+	numResizes++;
 }
 
 template<typename T>
@@ -67,6 +77,7 @@ void ABS<T>::shrinkArr() {
 	}
 
 	data = newArr;
+	numResizes++;
 }
 
 template<typename T>
@@ -85,14 +96,16 @@ ABS<T>::ABS() {
 	top = 0;
 	capacity = 1;
 	data = new T[capacity];
+	numResizes = 0;
 }
 
-template<typename T>
-ABS<T>::ABS(unsigned int capacity) {
-	top = 0;
-	this->capacity = capacity;
-	data = new T[capacity];
-}
+//template<typename T>
+//ABS<T>::ABS(unsigned int capacity) {
+//	top = 0;
+//	this->capacity = capacity;
+//	data = new T[capacity];
+//	numResizes = 0;
+//}
 
 template<typename T>
 ABS<T>::ABS(const ABS& d) {
@@ -108,6 +121,16 @@ ABS<T>& ABS<T>::operator=(const ABS& d) {
 template<typename T>
 ABS<T>::~ABS() {
 	delete[] data; //if data != nullptr? data = nullptr?
+}
+
+template<typename T>
+ABS<T>::ABS(float scaleFactor) {
+	//cout << "yee" << endl;
+	top = 0;
+	this->scaleFactor = scaleFactor;
+	capacity = 0;
+	data = new T[capacity];
+	numResizes = 0;
 }
 
 template<typename T>
@@ -158,4 +181,9 @@ unsigned int ABS<T>::getMaxCapacity() {
 template<typename T>
 T* ABS<T>::getData() {
 	return data;
+}
+
+template<typename T>
+inline unsigned int ABS<T>::getResizes() {
+	return numResizes;
 }
