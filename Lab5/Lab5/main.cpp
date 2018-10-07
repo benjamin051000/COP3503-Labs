@@ -1,11 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 using namespace std;
 
-class Lego {
+struct Lego {
 	int setNumber;
 	string theme;
 	string name;
@@ -13,11 +14,17 @@ class Lego {
 	int numPieces;
 	float price;
 
-public:
-	
+	Lego(int setNumber = -1, string theme = "", string name = "", int numMiniFigs = 0, int numPieces = 0, float price = 0);
 };
 
+void testLego() {
+
+}
+
 int main() {
+	testLego();
+	return 0;
+
 	cout << std::fixed << setprecision(2);
 	cout << "Which file(s) to open?\n";
 	cout << "1. lego1.csv" << endl;
@@ -59,7 +66,10 @@ int main() {
 	int numPieces;
 	float price;
 	string line;
-	while (getLine(file, line)) {
+
+	while (getline(file, line, '\n')) {
+		stringstream s(line);
+
 
 	}
 
@@ -109,3 +119,6 @@ int main() {
 	return 0;
 }
 
+Lego::Lego(int setNumber, string theme, string name, int numMiniFigs, int numPieces, float price) {
+
+}
