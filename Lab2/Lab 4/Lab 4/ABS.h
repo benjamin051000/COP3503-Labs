@@ -1,7 +1,5 @@
 #pragma once
 #include <iostream>
-using namespace std;
-
 template<typename T>
 class ABS {
 	float scaleFactor = 2.0f;
@@ -9,8 +7,6 @@ class ABS {
 	and the index of the next empty space to push to.*/
 	unsigned int top, capacity;
 	T* data;
-
-	//Extra Credit
 	unsigned int numResizes = 0;
 
 	void growArr();
@@ -20,12 +16,12 @@ class ABS {
 	void set(const ABS& d);
 public:
 	ABS();
-	//ABS(unsigned int capacity);
+	ABS(unsigned int capacity);
 	ABS(const ABS& d);
 	ABS<T>& operator=(const ABS& d);
 	~ABS();
-	//Extra Credit
-	ABS(float scaleFactor);
+	
+	void setSF(float scale);
 
 	//Add to the stack.
 	void push(T data);
@@ -38,12 +34,13 @@ public:
 	unsigned int getSize();
 	unsigned int getMaxCapacity();
 	T* getData();
-	//Extra Credit
-	unsigned int getResizes();
+	unsigned int getNumResizes();
+	float getsf();
 };
 
 template<typename T>
 void ABS<T>::growArr() {
+	std::cout << "growing..." << std::endl;
 	//Make the new array
 	capacity = (int)(capacity * scaleFactor);
 	T* newArr = new T[capacity];
@@ -96,16 +93,14 @@ ABS<T>::ABS() {
 	top = 0;
 	capacity = 1;
 	data = new T[capacity];
-	numResizes = 0;
 }
 
-//template<typename T>
-//ABS<T>::ABS(unsigned int capacity) {
-//	top = 0;
-//	this->capacity = capacity;
-//	data = new T[capacity];
-//	numResizes = 0;
-//}
+template<typename T>
+ABS<T>::ABS(unsigned int capacity) {
+	top = 0;
+	this->capacity = capacity;
+	data = new T[capacity];
+}
 
 template<typename T>
 ABS<T>::ABS(const ABS& d) {
@@ -120,17 +115,12 @@ ABS<T>& ABS<T>::operator=(const ABS& d) {
 
 template<typename T>
 ABS<T>::~ABS() {
-	delete[] data; //if data != nullptr? data = nullptr?
+	delete[] data;
 }
 
 template<typename T>
-ABS<T>::ABS(float scaleFactor) {
-	//cout << "yee" << endl;
-	top = 0;
-	this->scaleFactor = scaleFactor;
-	capacity = 0;
-	data = new T[capacity];
-	numResizes = 0;
+void ABS<T>::setSF(float scale) {
+	scaleFactor = scale;
 }
 
 template<typename T>
@@ -184,6 +174,11 @@ T* ABS<T>::getData() {
 }
 
 template<typename T>
-inline unsigned int ABS<T>::getResizes() {
+unsigned int ABS<T>::getNumResizes() {
 	return numResizes;
+}
+
+template<typename T>
+inline float ABS<T>::getsf() {
+	return scaleFactor;
 }
