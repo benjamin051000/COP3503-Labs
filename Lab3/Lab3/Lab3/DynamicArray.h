@@ -78,7 +78,7 @@ void DynamicArray<T>::Remove(unsigned int index) {
 
 template<typename T>
 DynamicArray<T>::DynamicArray() {
-	this->size = 0;
+	size = 0;
 	capacity = 0;
 
 	data = nullptr;
