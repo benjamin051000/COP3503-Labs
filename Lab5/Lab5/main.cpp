@@ -77,7 +77,7 @@ int main() {
 	loadData(loadqueue);
 
 	/*======= Print out how many sets were loaded =======*/
-	cout << parsedData.size() << " sets loaded." << endl;
+	cout << "Total number of sets: " << parsedData.size() << endl << endl;
 	
 	/* Imagine your program had a menu like this:
 	cout << "1. Most Expensive set" << endl;
@@ -91,34 +91,32 @@ int main() {
 	 cout << "0. Exit" << endl;
 	*/
 	int choice;
-	do {
-		cin >> choice;
-		cin.get();  // Clear newline character for any later input
+	cin >> choice;
+	cin.get();  // Clear newline character for any later input
 
-		/*======= Based on the choice, execute the appropriate task and show the results =======*/
-		switch (choice) {
-		case 1: mostExpensiveSet();
-			break;
-		case 2:largestPieceCount();
-			break;
-		case 3: searchName();
-			break;
-		case 4: searchTheme();
-			break;
-		case 5: partCountInfo();
-			break;
-		case 6: priceInfo();
-			break;
-		case 7: minifigInfo();
-			break;
-		case 8: buyItAll();
-			break;
-		case 0:
-			break;
-		default:
-			break;
-		}
-	} while (choice != 0); //better way to do this?
+	/*======= Based on the choice, execute the appropriate task and show the results =======*/
+	switch (choice) {
+	case 1: mostExpensiveSet();
+		break;
+	case 2:largestPieceCount();
+		break;
+	case 3: searchName();
+		break;
+	case 4: searchTheme();
+		break;
+	case 5: partCountInfo();
+		break;
+	case 6: priceInfo();
+		break;
+	case 7: minifigInfo();
+		break;
+	case 8: buyItAll();
+		break;
+	case 0:
+		break;
+	default:
+		break;
+	}
 
 	return 0;
 }
@@ -164,14 +162,29 @@ void loadData(vector<string>& a) {
 			aname = sstoken;
 
 			getline(ss, sstoken, ',');
-			anumMiniFigs = sstoken == "" ? 0 : stoi(sstoken);
+			try {
+				anumMiniFigs = sstoken == "" ? 0 : stoi(sstoken);
+			}
+			catch (invalid_argument& a) {
+				anumMiniFigs = 0;
+			}
 
 			getline(ss, sstoken, ',');
-			anumPieces = sstoken == "" ? 0 : stoi(sstoken);
+			try {
+				anumPieces = sstoken == "" ? 0 : stoi(sstoken);
+			}
+			catch (invalid_argument& a) {
+				anumPieces = 0;
+			}
 
 			getline(ss, sstoken, ',');
-			aprice = sstoken == "" ? 0.0f : stof(sstoken);
-
+			try {
+				aprice = sstoken == "" ? 0 : stof(sstoken);
+			}
+			catch (invalid_argument& a) {
+				aprice = 0;
+			}
+			
 			//make a new lego instance and put it in the vector
 			parsedData.push_back(Lego(asetNumber, atheme, aname, anumMiniFigs, anumPieces, aprice));
 		}
@@ -184,31 +197,30 @@ void mostExpensiveSet() {
 	Lego mostExpensiveSet;
 
 	for (Lego set: parsedData) {
-		if (set.price > mostExpensiveSet.price) {
+		if (set.price > mostExpensiveSet.price && set.price != 0) {
 			mostExpensiveSet = set;
 		}
 	}
-	cout << "Most expensive set is:\n" << mostExpensiveSet << endl;
+	cout << "The most expensive set is:\n" << mostExpensiveSet << endl << endl;
 }
 
 void largestPieceCount() {
 	Lego mostPieces; //will this work?
 
 	for (Lego set : parsedData) {
-		if (set.numPieces > mostPieces.numPieces) {
+		if (set.numPieces > mostPieces.numPieces && set.numPieces != 0) {
 			mostPieces = set;
 		}
 	}
-	cout << "Set with most pieces is:\n" << mostPieces << endl;
+	cout << "The set with the highest parts count:\n" << mostPieces << endl << endl;
 }
 
 void searchName() {
 	vector<Lego> found;
-	cout << "Input a keyword: ";
+	//cout << "Input a keyword: ";
 	string input;
-	cin >> input;
-	cout << "\nSearching for " << input << "..." << endl;
-
+	getline(cin, input);
+	
 	for (Lego set : parsedData) {
 		if (set.name.find(input) != string::npos) {
 			found.push_back(set);
@@ -216,36 +228,40 @@ void searchName() {
 	}
 	
 	if (found.size() > 0) {
+		cout << "Sets matching \"" << input << "\":" << endl;
 		for (Lego set : found) {
-			cout << set.setNumber << " " << set.name << " $" << set.price << endl;
+			cout << set.setNumber << " " << set.name << " $" << set.price << " " << endl;
 		}
 	}
 	else {
-		cout << "No sets found matching that search term." << endl;
+		cout << "No sets found matching that search term";
 	}
+	cout << endl;
 }
 
 void searchTheme() {
 	vector<Lego> found;
-	cout << "Input a keyword: ";
+	//cout << "Input a keyword: ";
 	string input;
-	cin >> input;
-	cout << "\nSearching for " << input << "..." << endl;
+	getline(cin, input);
 
 	for (Lego set : parsedData) {
+		
 		if (set.theme.find(input) != string::npos) {
 			found.push_back(set);
 		}
 	}
 
 	if (found.size() > 0) {
+		cout << "\nSets matching \"" << input << "\":" << endl;
 		for (Lego set : found) {
-			cout << set.setNumber << " " << set.theme << " $" << set.price << endl;
+			cout << set.setNumber << " " << set.name << " $" << set.price << endl;
 		}
 	}
 	else {
-		cout << "No sets found matching that search term." << endl;
+		cout << "No sets found matching that search term";
 	}
+	cout << endl;
 }
 
 void partCountInfo() {
@@ -253,6 +269,8 @@ void partCountInfo() {
 	Lego least = parsedData.at(0), greatest;
 
 	for (Lego set : parsedData) {
+		if (set.numPieces == 0) continue;
+
 		total += set.numPieces;
 		count++;
 		if (set.numPieces < least.numPieces) {
@@ -262,45 +280,68 @@ void partCountInfo() {
 			greatest = set;
 		}
 	}
-	cout << "Average part count of 601 sets: " << total / count << endl << endl;
-	cout << "Set with the smallest part count: \n" << least << endl << endl;
-	cout << "Set with the largest part count: \n" << greatest << endl;
+	cout << "Average part count for " << parsedData.size() << " sets: " << total / count << endl << endl;
+	cout << "Set with the smallest part count:\n" << least << endl << endl;
+	cout << "Set with the largest part count:\n" << greatest << endl << endl;
 }
 
 void priceInfo() {
 	float total = 0;
-	Lego least = parsedData.at(0), greatest;
+	int count = 0;
+	Lego least, greatest;
 
 	for (Lego set : parsedData) {
+		if (set.price == 0) continue;
+
 		total += set.price;
-		if (set.price < least.price) {
-			least = set;
-		}
+		count++;
+
 		if (set.price > greatest.price) {
 			greatest = set;
 		}
 	}
-	cout << "Average price information for" << parsedData.size() << " sets: $" << total / parsedData.size() << endl << endl;
-	cout << "Set with the minimum price: \n" << least << endl << endl;
-	cout << "Set with the maximum price: \n" << greatest << endl;
+
+	least = greatest;
+
+	for (Lego set : parsedData) {
+		if (set.price == 0) continue;
+
+		if (set.price < least.price) {
+			least = set;
+		}
+	}
+
+	cout << "Average price for " << count << " sets: $" << total / count << endl << endl;
+	cout << "Least expensive set:\n" << least << endl << endl;
+	cout << "Most expensive set:\n" << greatest << endl << endl;
 }
 
 void minifigInfo() {
 	int total = 0;
+	int count = 0;
 	Lego least = parsedData.at(0), greatest;
 
 	for (Lego set : parsedData) {
+		if (set.numMiniFigs == 0) continue;
+
+		count++;
 		total += set.numMiniFigs;
-		if (set.numMiniFigs < least.numMiniFigs) {
-			least = set;
-		}
+		
 		if (set.numMiniFigs > greatest.numMiniFigs) {
 			greatest = set;
 		}
 	}
-	cout << "Average minifigure count for" << parsedData.size() << ": " << total / parsedData.size() << endl << endl;
-	cout << "Set with the smallest minifigure count: \n" << least << endl << endl;
-	cout << "Set with the largest minifigure count: \n" << greatest << endl;
+	least = greatest;
+	for (Lego set : parsedData) {
+		if (set.numMiniFigs == 0) continue;
+
+		if (set.numMiniFigs < least.numMiniFigs) {
+			least = set;
+		}
+	}
+	cout << "Average number of minifigures: " << total / count << endl << endl;
+	cout << "Set with the most minifigures:\n" << greatest << endl << endl;
+	cout << "Set with the fewest minifigures:\n" << least << endl << endl;
 }
 
 void buyItAll() {
@@ -316,5 +357,5 @@ void buyItAll() {
 
 	cout << "It would cost: $" << totalPrice << endl;
 	cout << "You would have " << totalPieces << " pieces in your collection" << endl;
-	cout << "You would have an army of " << totalMinifigs << " mini-figures!" << endl;
+	cout << "You would have an army of " << totalMinifigs << " minifigures!" << endl;
 }
