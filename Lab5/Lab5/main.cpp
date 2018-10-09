@@ -44,37 +44,40 @@ void buyItAll();
 
 vector<Lego> parsedData;
 
-int main() {
+int main(int argc, char** argv) {
 	vector<string> loadqueue;
-
-	cout << std::fixed << setprecision(2);
-	cout << "Which file(s) to open?\n";
-	cout << "1. lego1.csv" << endl;
-	cout << "2. lego2.csv" << endl;
-	cout << "3. lego3.csv" << endl;
-	cout << "4. All 3 files" << endl;
-	int option;
-	cin >> option;
-
+	vector<string> argument = { argv[1] };
 	
-	bool sample = true;
-	
+	loadData(argument);
 
-	/*======= Load data from file(s) =======*/
-	switch (option) {
-	case 1: sample ? loadqueue.push_back("SAMPLE_lego1.csv") : loadqueue.push_back("lego1.csv");
-		break;
-	case 2: sample ? loadqueue.push_back("SAMPLE_lego2.csv") : loadqueue.push_back("lego2.csv");
-		break;
-	case 3: sample ? loadqueue.push_back("SAMPLE_lego3.csv") : loadqueue.push_back("lego3.csv");
-		break;
-	case 4: sample ? loadqueue = { "SAMPLE_lego1.csv", "SAMPLE_lego2.csv", "SAMPLE_lego3.csv" } : loadqueue = { "lego1.csv", "lego2.csv", "lego3.csv" };
-		break;
-	default: cout << "Invalid input." << endl;
-		return 0;
-	}
+	//cout << std::fixed << setprecision(2);
+	//cout << "Which file(s) to open?\n";
+	//cout << "1. lego1.csv" << endl;
+	//cout << "2. lego2.csv" << endl;
+	//cout << "3. lego3.csv" << endl;
+	//cout << "4. All 3 files" << endl;
+	//int option;
+	//cin >> option;
 
-	loadData(loadqueue);
+	//
+	//bool sample = true;
+	//
+
+	///*======= Load data from file(s) =======*/
+	//switch (option) {
+	//case 1: sample ? loadqueue.push_back("SAMPLE_lego1.csv") : loadqueue.push_back("lego1.csv");
+	//	break;
+	//case 2: sample ? loadqueue.push_back("SAMPLE_lego2.csv") : loadqueue.push_back("lego2.csv");
+	//	break;
+	//case 3: sample ? loadqueue.push_back("SAMPLE_lego3.csv") : loadqueue.push_back("lego3.csv");
+	//	break;
+	//case 4: sample ? loadqueue = { "SAMPLE_lego1.csv", "SAMPLE_lego2.csv", "SAMPLE_lego3.csv" } : loadqueue = { "lego1.csv", "lego2.csv", "lego3.csv" };
+	//	break;
+	//default: cout << "Invalid input." << endl;
+	//	return 0;
+	//}
+
+	//loadData(loadqueue);
 
 	/*======= Print out how many sets were loaded =======*/
 	cout << "Total number of sets: " << parsedData.size() << endl << endl;
@@ -128,7 +131,7 @@ void loadData(vector<string>& a) {
 
 		if (!file.is_open()) {
 			cout << "Could not open " << filename << "." << endl;
-			return;
+			throw -1;
 		}
 
 		//Load vector with each Lego instnace
