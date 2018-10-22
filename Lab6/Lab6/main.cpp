@@ -46,15 +46,28 @@ struct Hero {
 		cout << "HP: " << hp << " / " << maxhp << endl;
 		cout << "Armor: " << armor * 100 << "%" << endl;
 		cout << "Magic armor: " << magicArmor * 100 << "%" << endl;
-		cout << "Inventory:" << endl;
-		for (Hero::Item item : inventory) {
-			cout << item.name << ", " << item.value << ", " << item.weight << endl;
+		cout << "Inventory: " << endl;
+		if (inventory.size() == 0) {
+			cout << "Inventory empty." << endl;
+		}
+		else {
+			for (Hero::Item item : inventory) {
+				cout << item.name << ", " << item.value << ", " << item.weight << endl;
+			}
 		}
 		cout << endl;
 	}
 
 	size_t numItems() {
 		return inventory.size();
+	}
+
+	int getTotalItemValue() {
+		int totalValue = 0;
+		for (Item item : inventory) {
+			totalValue += item.value;
+		}
+		return totalValue;
 	}
 };
 
@@ -244,9 +257,9 @@ void ListClumsiest(vector<Hero>& heroList) {
 
 	Hero clumsiest = heroList.at(0),
 		secondClumsiest = heroList.at(0);
-	int idx = 0;
+	unsigned int idx = 0;
 	//Get the clumsiest first
-	for (int i = 0; i < heroList.size(); i++) {
+	for (unsigned int i = 0; i < heroList.size(); i++) {
 		if (heroList.at(i).agility < clumsiest.agility) {
 			clumsiest = heroList.at(i);
 			idx = i;
@@ -259,15 +272,21 @@ void ListClumsiest(vector<Hero>& heroList) {
 	
 
 	//Second clumsiest
-	for (int i = 0; i < heroList.size(); i++) {
+	for (unsigned int i = 0; i < heroList.size(); i++) {
 		if (heroList.at(i).agility < secondClumsiest.agility && i != idx) {
 			secondClumsiest = heroList.at(i);
 		}
 	}
-	cout << "Second clumsiest hero:" << endl;
+	cout << "Second clumsiest hero: " << endl;
 	secondClumsiest.print();
 }
 
 void MostValuableStuff(vector<Hero>& heroList) {
-
+	Hero richestHero = heroList.at(0);
+	for (Hero hero : heroList) {
+		if (hero.getTotalItemValue() > richestHero.getTotalItemValue()) {
+			richestHero = hero;
+		}
+	}
+	richestHero.print();
 }
