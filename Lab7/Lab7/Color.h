@@ -4,7 +4,7 @@ using namespace std;
 
 class Color {
 	string name; //Called a const char in the pdf. Is this important? Prob not
-	unsigned char r, g, b;
+	int value;
 
 public:
 	void SetName(string newName);
