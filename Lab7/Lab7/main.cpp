@@ -36,11 +36,6 @@ int main() {
 	SortColors(colors);
 	PrintColors(colors);
 
-	//Color c;
-	//c.SetName("Black");
-	//c.SetValue(0); //16777215 is white
-	//cout << c.GetName() << " " << c.GetHexValue() << " " << (int)c.GetR() << " " << (int)c.GetB() << " " << (int)c.GetG() << endl;
-
 	return 0;
 }
 
@@ -73,7 +68,22 @@ void ReadFile(const char *filename, vector<Color> &outVector) {
 }
 
 void SortColors(vector<Color> &colors) {
-	// TODO: Sort the colors in ascending order by name.
+	// Selection sort
+	unsigned int sortedIdx = 0, min;
+	while (sortedIdx < colors.size()) {
+		min = sortedIdx;
+
+		// Find smallest
+		for (unsigned int i = sortedIdx; i < colors.size(); i++) {
+			if (colors.at(i).GetName() < colors.at(min).GetName()) {
+				min = i;
+			}
+		}
+
+		swap(colors.at(sortedIdx), colors.at(min));
+
+		sortedIdx++;
+	}
 }
 
 void PrintColors(const vector<Color> &colors) {

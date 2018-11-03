@@ -40,7 +40,7 @@ unsigned char Color::GetB() const {
 
 string Color::GetHexValue() const {
 	uint8_t r = GetR(), g = GetG(), b = GetB(); //essentially unsigned chars (8-bit u ints)
-	string hexValue = "#";
+	string hexValue = "0x";
 
 	/* (val / 16) is the tens place in hex,
 	(val % 16) is the ones place.*/
