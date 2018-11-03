@@ -26,7 +26,6 @@ int main() {
 		ReadFile(file.c_str(), colors);
 	}
 	else if (choice == 4) {
-		vector<Color> colors;
 		for (int i = 1; i <= 3; i++) {
 			string file = "colors" + to_string(i) + ".txt";
 			ReadFile(file.c_str(), colors);
@@ -37,12 +36,21 @@ int main() {
 	SortColors(colors);
 	PrintColors(colors);
 
+	//Color c;
+	//c.SetName("Black");
+	//c.SetValue(0); //16777215 is white
+	//cout << c.GetName() << " " << c.GetHexValue() << " " << (int)c.GetR() << " " << (int)c.GetB() << " " << (int)c.GetG() << endl;
+
 	return 0;
 }
 
 void ReadFile(const char *filename, vector<Color> &outVector) {
-	// TODO: Load the file and store the resulting colors in outVector.
 	fstream file(filename, ios_base::in);
+
+	if (!file.is_open()) {
+		cout << "Error opening " << filename << endl;
+		return;
+	}
 
 	string line, sstoken;
 	while (getline(file, line, '\n')) {

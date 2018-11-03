@@ -5,6 +5,7 @@ using namespace std;
 class Color {
 	string name; //Called a const char in the pdf. Is this important? Prob not
 	int value;
+	string getHexRep(uint8_t input) const;
 
 public:
 	void SetName(string newName);
