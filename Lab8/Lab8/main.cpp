@@ -23,15 +23,15 @@ int main()
 	else if (testNum == 2)
 		TestTwo();
 	else if (testNum == 3)
-		//TestThree();
-	//else if (testNum == 4)
-		//TestFour();
-	//else if (testNum == 5)
+		TestThree();
+	else if (testNum == 4)
+		TestFour();
+	else if (testNum == 5)
 		TestFive();
 	else if (testNum == 6)
 		TestSix();
-	//else if (testNum == 7)
-		//TestSeven();
+	else if (testNum == 7)
+		TestSeven();
 
 	return 0;
 }
@@ -192,35 +192,35 @@ void TestSix()
 		delete shapes[i];
 }
 
-//void TestSeven()
-//{
-//	Shape3D *shapes[] =
-//	{
-//		new TriangularPyramid(4.5f, 2, 4.87),
-//		new RectangularPyramid(3.23f, 2, 3),
-//		new Cylinder(3.86f, 4),
-//		new Sphere(2.3f),
-//	};
-//
-//	Shape3D *smallestShape = shapes[0];
-//	Shape3D *largestShape = shapes[0];
-//	for (int i = 0; i < 4; i++)
-//		shapes[i]->ShowVolume();
-//
-//	// Find the largest and smallest shapes
-//	for (int i = 1; i < 4; i++)
-//	{
-//		if (*smallestShape > *shapes[i])
-//			smallestShape = shapes[i];
-//		if (*largestShape < *shapes[i])
-//			largestShape = shapes[i];
-//	}
-//	cout << endl << "***** The smallest shape *****" << endl;
-//	smallestShape->Display();
-//
-//	cout << endl << "***** The largest shape *****" << endl;
-//	largestShape->Display();
-//
-//	for (int i = 0; i < 4; i++)
-//		delete shapes[i];
-//}
+void TestSeven()
+{
+	Shape3D *shapes[] =
+	{
+		new TriangularPyramid(4.5f, 2, 4.87),
+		new RectangularPyramid(3.23f, 2, 3),
+		new Cylinder(3.86f, 4),
+		new Sphere(2.3f),
+	};
+
+	Shape3D *smallestShape = shapes[0];
+	Shape3D *largestShape = shapes[0];
+	for (int i = 0; i < 4; i++)
+		shapes[i]->ShowVolume();
+
+	// Find the largest and smallest shapes
+	for (int i = 1; i < 4; i++)
+	{
+		if (*smallestShape > *shapes[i])
+			smallestShape = shapes[i];
+		if (*largestShape < *shapes[i])
+			largestShape = shapes[i];
+	}
+	cout << endl << "***** The smallest shape *****" << endl;
+	smallestShape->Display();
+
+	cout << endl << "***** The largest shape *****" << endl;
+	largestShape->Display();
+
+	for (int i = 0; i < 4; i++)
+		delete shapes[i];
+}

@@ -2,20 +2,18 @@
 
 const float PI = 3.14159f;
 
-void Shape2D::Display() const {
-	ShowArea();
-}
+Shape::~Shape() {}
 
-bool Shape2D::operator>(const Shape2D & rhs) const {
-	return false;
+bool Shape2D::operator>(const Shape2D& rhs) const {
+	return this->Area() > rhs.Area();
 }
 
 bool Shape2D::operator<(const Shape2D & rhs) const {
-	return false;
+	return this->Area() < rhs.Area();
 }
 
 bool Shape2D::operator==(const Shape2D & rhs) const {
-	return false;
+	return this->Area() == rhs.Area();
 }
 
 Rectangle::Rectangle() {
@@ -38,8 +36,12 @@ float Rectangle::Area() const {
 }
 
 void Rectangle::ShowArea() const {
-	cout << "Rectangle:\n\tBase: " << base << "\n\tHeight: " 
-		<< height << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Rectangle is : " << Area() << endl;
+}
+
+void Rectangle::Display() const {
+	ShowArea();
+	cout << "Length: " << base << "\nWidth: " << height << endl;
 }
 
 float Rectangle::GetBase() const {
@@ -58,7 +60,12 @@ Square::Square(float side) : Rectangle(side, side) {
 }
 
 void Square::ShowArea() const {
-	cout << "Square:\n\tSide: " << GetBase() << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Square is : " << Area() << endl;
+}
+
+void Square::Display() const {
+	ShowArea();
+	cout << "Length of side: " << Rectangle::GetBase() << endl;
 }
 
 Triangle::Triangle() {
@@ -81,8 +88,12 @@ float Triangle::Area() const {
 }
 
 void Triangle::ShowArea() const {
-	cout << "Triangle:\n\tBase: " << base << "\n\tHeight: "
-		<< height << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Triangle is : " << Area() << endl;
+}
+
+void Triangle::Display() const {
+	ShowArea();
+	cout << "Base: " << base << "\nHeight: " << height << endl;
 }
 
 float Triangle::GetBase() const {
@@ -100,7 +111,12 @@ Circle::Circle(float r) : Ellipse(r, r) {
 }
 
 void Circle::ShowArea() const {
-	cout << "Circle:\n\tRadius: " << GetSmaj() << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Circle is : " << Area() << endl;
+}
+
+void Circle::Display() const {
+	ShowArea();
+	cout << "Radius: " << GetSmaj() << endl;
 }
 
 float Circle::GetRadius() const {
@@ -127,8 +143,13 @@ float Ellipse::Area() const {
 }
 
 void Ellipse::ShowArea() const {
-	cout << "Ellipse:\n\tSemi-major Axis: " << smaj << "\n\tSemi-minor Axis: "
-		<< smin << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Ellipse is : " << Area() << endl;
+}
+
+void Ellipse::Display() const {
+	ShowArea();
+	cout << "Length of semi-major axis: " << smaj
+		<< "\nLength of semi-minor axis: " << smin << endl;
 }
 
 float Ellipse::GetSmaj() const {
@@ -148,6 +169,9 @@ Trapezoid::Trapezoid(float bl, float tl, float h) {
 }
 
 void Trapezoid::Scale(float scaleFactor) {
+	bottomLength *= scaleFactor;
+	topLength *= scaleFactor;
+	height *= scaleFactor;
 }
 
 float Trapezoid::Area() const {
@@ -155,8 +179,13 @@ float Trapezoid::Area() const {
 }
 
 void Trapezoid::ShowArea() const {
-	cout << "Trapezoid:\n\tBottom Length: " << bottomLength << "\n\tTop Length: "
-		<< topLength << "\n\tHeight" << height << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Trapezoid is : " << Area() << endl;
+}
+
+void Trapezoid::Display() const {
+	ShowArea();
+	cout << "Length of side A: " << bottomLength <<
+		"\nLength of side B: " << topLength << "\nHeight: " << height << endl;
 }
 
 Sector::Sector() {
@@ -171,22 +200,32 @@ Sector::Sector(float r, float a) {
 
 void Sector::Scale(float scaleFactor) {
 	radius *= scaleFactor;
+	angle *= scaleFactor;
 }
 
 float Sector::Area() const {
-	return 0.5f *  pow(radius, 2) * angle;
+	return 0.5f *  pow(radius, 2) * GetRads();
 }
 
 void Sector::ShowArea() const {
-	cout << "Sector:\n\tRadius: " << radius << "\n\tAngle: "
-		<< angle << "\n\tArea: " << Area() << endl;
+	cout << "The area of the Sector is : " << Area() << endl;
+}
+
+void Sector::Display() const {
+	ShowArea();
+	cout << "Radius: " << radius << "\nAngle in radians: " << GetRads()
+		<< "\nAngle in degrees: " << angle << endl;
+}
+
+float Sector::GetRads() const {
+	return angle * PI / 180.f;
 }
 
 TriangularPyramid::TriangularPyramid() : Triangle(0, 0) {
 	height = 0;
 }
 
-TriangularPyramid::TriangularPyramid(float l, float w, float h) : Triangle(l, w) {
+TriangularPyramid::TriangularPyramid(float h, float l, float w) : Triangle(l, w) {
 	height = h;
 }
 
@@ -195,26 +234,43 @@ float TriangularPyramid::Volume() const {
 }
 
 void TriangularPyramid::ShowVolume() const {
-	cout << "Triangular Pyramid:\n\tBase: " << Triangle::GetBase() << "\n\tTop Length: "
-		<< Triangle::GetHeight() << "\n\tHeight: " << height << "\n\tArea: " << Volume() << endl;
+	cout << "The volume of the Triangular Pyramid is : " << Volume() << endl;
+}
+
+void TriangularPyramid::Display() const {
+	ShowVolume();
+	cout << "The height is: " << height << endl;
+	Triangle::Display();
 }
 
 void TriangularPyramid::Scale(float scaleFactor) {
+	Triangle::Scale(scaleFactor);
+	height *= scaleFactor;
 }
 
-void Shape3D::Display() const {
-	ShowVolume();
+bool Shape3D::operator>(const Shape3D& rhs) const {
+	return this->Volume() > rhs.Volume();
+}
+
+bool Shape3D::operator<(const Shape3D& rhs) const {
+	return this->Volume() < rhs.Volume();
+}
+
+bool Shape3D::operator==(const Shape3D& rhs) const {
+	return this->Volume() == rhs.Volume();
 }
 
 RectangularPyramid::RectangularPyramid() : Rectangle(0, 0) {
 	height = 0;
 }
 
-RectangularPyramid::RectangularPyramid(float l, float w, float h) : Rectangle(l, w) {
+RectangularPyramid::RectangularPyramid(float h, float l, float w) : Rectangle(l, w) {
 	height = h;
 }
 
 void RectangularPyramid::Scale(float scaleFactor) {
+	Rectangle::Scale(scaleFactor);
+	height *= scaleFactor;
 }
 
 float RectangularPyramid::Volume() const {
@@ -222,19 +278,26 @@ float RectangularPyramid::Volume() const {
 }
 
 void RectangularPyramid::ShowVolume() const {
-	cout << "Triangular Pyramid:\n\tLength: " << Rectangle::GetBase() << "\n\tWidth: "
-		<< Rectangle::GetHeight() << "\n\tHeight: " << height << "\n\tVolume: " << Volume() << endl;
+	cout << "The volume of the Rectangular Pyramid is : " << Volume() << endl;
+}
+
+void RectangularPyramid::Display() const {
+	ShowVolume();
+	cout << "The height is: " << height << endl;
+	Rectangle::Display();
 }
 
 Cylinder::Cylinder() : Circle(0) {
 	height = 0;
 }
 
-Cylinder::Cylinder(float r, float h) : Circle(r) {
+Cylinder::Cylinder(float h, float r) : Circle(r) {
 	height = h;
 }
 
 void Cylinder::Scale(float scaleFactor) {
+	Circle::Scale(scaleFactor);
+	height *= scaleFactor;
 }
 
 float Cylinder::Volume() const {
@@ -242,8 +305,13 @@ float Cylinder::Volume() const {
 }
 
 void Cylinder::ShowVolume() const {
-	cout << "Cylinder:\n\tRadius: " << Circle::GetRadius() << "\n\tHeight: "
-		 << height << "\n\tVolume: " << Volume() << endl;
+	cout << "The volume of the Cylinder is : " << Volume() << endl;
+}
+
+void Cylinder::Display() const {
+	ShowVolume();
+	cout << "The height is: " << height << endl;
+	Circle::Display();
 }
 
 Sphere::Sphere() : Circle(0) {
@@ -253,6 +321,7 @@ Sphere::Sphere(float r) : Circle(r) {
 }
 
 void Sphere::Scale(float scaleFactor) {
+	Circle::Scale(scaleFactor);
 }
 
 float Sphere::Volume() const {
@@ -260,4 +329,10 @@ float Sphere::Volume() const {
 }
 
 void Sphere::ShowVolume() const {
+	cout << "The volume of the Sphere is : " << Volume() << endl;
+}
+
+void Sphere::Display() const {
+	ShowVolume();
+	Circle::Display();
 }

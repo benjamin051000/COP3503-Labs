@@ -7,17 +7,18 @@ class Shape {
 public:
 	virtual void Scale(float scaleFactor) = 0;
 	virtual void Display() const = 0;
+	virtual ~Shape() = 0;
 };
 
 class Shape2D : public Shape {
 public:
-	void Display() const;
 	virtual float Area() const = 0;
 	virtual void ShowArea() const = 0;
 
 	bool operator>(const Shape2D& rhs) const;
 	bool operator<(const Shape2D& rhs) const;
 	bool operator==(const Shape2D& rhs) const;
+	~Shape2D() {}
 };
 
 class Rectangle : public Shape2D {
@@ -29,7 +30,7 @@ public:
 	void Scale(float scaleFactor);
 	float Area() const;
 	void ShowArea() const;
-
+	void Display() const;
 	float GetBase() const;
 	float GetHeight() const;
 };
@@ -39,6 +40,7 @@ public:
 	Square();
 	Square(float side);
 	void ShowArea() const;
+	void Display() const;
 };
 
 class Triangle : public Shape2D {
@@ -50,7 +52,7 @@ public:
 	void Scale(float scaleFactor);
 	float Area() const;
 	void ShowArea() const;
-
+	void Display() const;
 	float GetBase() const;
 	float GetHeight() const;
 };
@@ -64,7 +66,7 @@ public:
 	void Scale(float scaleFactor);
 	float Area() const;
 	void ShowArea() const;
-
+	void Display() const;
 	float GetSmaj() const;
 };
 
@@ -73,6 +75,7 @@ public:
 	Circle();
 	Circle(float r);
 	void ShowArea() const;
+	void Display() const;
 	//Area() and Scale() taken care of in Ellipse class
 
 	float GetRadius() const;
@@ -87,6 +90,7 @@ public:
 	void Scale(float scaleFactor);
 	float Area() const;
 	void ShowArea() const;
+	void Display() const;
 };
 
 class Sector : public Shape2D {
@@ -98,6 +102,9 @@ public:
 	void Scale(float scaleFactor);
 	float Area() const;
 	void ShowArea() const;
+	void Display() const;
+
+	float GetRads() const;
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -106,12 +113,12 @@ public:
 class Shape3D : public Shape {//should this be virtual public?
 	public:
 		virtual float Volume() const = 0;
-		virtual void ShowVolume() const = 0;
-		void Display() const;
+		virtual void ShowVolume() const = 0;		
 
-		bool operator>(const Shape2D& rhs) const;
-		bool operator<(const Shape2D& rhs) const;
-		bool operator==(const Shape2D& rhs) const;
+		bool operator>(const Shape3D& rhs) const;
+		bool operator<(const Shape3D& rhs) const;
+		bool operator==(const Shape3D& rhs) const;
+		~Shape3D() {}
 };
 
 class TriangularPyramid : public Shape3D, private Triangle {
@@ -123,6 +130,7 @@ public:
 	void Scale(float scaleFactor);
 	float Volume() const;
 	void ShowVolume() const;
+	void Display() const;
 };
 
 class RectangularPyramid : public Shape3D, private Rectangle {
@@ -134,6 +142,7 @@ public:
 	void Scale(float scaleFactor);
 	float Volume() const;
 	void ShowVolume() const;
+	void Display() const;
 };
 
 class Cylinder : public Shape3D, private Circle {
@@ -145,6 +154,7 @@ public:
 	void Scale(float scaleFactor);
 	float Volume() const;
 	void ShowVolume() const;
+	void Display() const;
 };
 
 class Sphere : public Shape3D, private Circle {
@@ -155,4 +165,5 @@ public:
 	void Scale(float scaleFactor);
 	float Volume() const;
 	void ShowVolume() const;
+	void Display() const;
 };
