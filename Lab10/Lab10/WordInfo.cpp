@@ -21,6 +21,8 @@ void WordInfo::ReadWordsFromFile(const char * filename) {
 			/*If the word is a null string (from multiple consecutive
 			spaces occurring in the file), skip over it.*/
 
+			
+
 			/*Remove outer non-letters*/
 			char firstChar = word[0];
 			while (firstChar != '\0' && !isalpha(firstChar)) {
@@ -42,21 +44,18 @@ void WordInfo::ReadWordsFromFile(const char * filename) {
 				word[i] = tolower(word[i]);
 			}
 
+			if (word.length() == 0) { continue; }
+
 			wordOccurrences[word] += 1;
 			totalWords++;
 		}
-
 	}
-	totalWords -= wordOccurrences[""];
-	wordOccurrences.erase("");
 
 	/*Generate wordFrequencies from wordOccurrences*/
 	for (unordered_map<string, int>::const_iterator it = wordOccurrences.begin();
 		it != wordOccurrences.end(); it++) {
 		wordFrequencies.emplace(it->second, it->first);
 	}
-
-	
 
 	cout << endl;
 }
@@ -83,7 +82,7 @@ void WordInfo::MostCommonWords(int count, bool ignoreCommonFile) const {
 	for (multimap<int, string>::const_reverse_iterator it = wordFrequencies.rbegin(); 
 		it != wordFrequencies.rend(); it++) {
 		
-		/*Guard from the ignored words if it is enabled*/
+		/*Skip the ignored words if it is enabled*/
 		if (ignoreCommonFile) {
 			if (find(ignoredWords.begin(), ignoredWords.end(), it->second) != ignoredWords.end()) {
 				continue;

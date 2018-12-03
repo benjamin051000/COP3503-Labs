@@ -57,7 +57,6 @@ int main() {
 	// Show the most frequent words, using the ignore list (to ignore the universally common words)
 	wordinfo.MostCommonWords(option + 1, true);
 
-
 	// Get and then show the longest words
 	vector<string> longestWords;
 	wordinfo.LongestWords(longestWords);
