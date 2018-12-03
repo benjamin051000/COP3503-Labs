@@ -5,11 +5,16 @@
 #include <cctype>
 #include <vector>
 #include <map>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 class WordInfo {
-	map<string, int> wordOccurrences;
+	unordered_map<string, int> wordOccurrences;
+	multimap<int, string> wordFrequencies;
+	
 	vector<string> ignoredWords;
+	int totalWords = 0;
 
 public:
 	WordInfo();
@@ -36,6 +41,9 @@ public:
 
 	/*Find search for an exact match, return the number of occurrences.
 	Return 0 if no occurrences are found.*/
-	int SearchForWord(const char *word) const;
+	int SearchForWord(string& word) const;
 
+	vector<string> PartialSearch(const char *word) const;
+
+	int AvgLength() const;
 };
